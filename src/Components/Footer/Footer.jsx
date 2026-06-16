@@ -35,11 +35,9 @@ const Footer = () => {
         <nav className="py-8">
           <ul className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-gray-300 text-sm md:text-base font-medium">
             {[
-              { title: "Services", link: "/" },
-              { title: "Coverage", link: "/" },
+              { title: "Coverage", link: "/coverage-area" },
               { title: "About Us", link: "/about-us" },
               { title: "Pricing", link: "/pricing" },
-              { title: "Blog", link: "/" },
               { title: "Contact", link: "/contact" },
             ].map((link) => (
               <li key={link}>
