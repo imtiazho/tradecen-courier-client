@@ -101,6 +101,9 @@ const SendParcel = () => {
     const trackingID = trackingIDGenerator();
 
     const parcelData = {
+      // For Owner checking
+      email: dbUser?.email,
+
       // 📦 Basic Info
       parcelType: data.parcelType,
       parcelName: data.parcelName,
@@ -181,8 +184,7 @@ const SendParcel = () => {
           text: `Tracking ID: ${trackingID}`,
           confirmButtonColor: "#002B36",
         });
-        // navigate("/dashboard/my-parcels");
-        navigate("/");
+        navigate("/dashboard/all-parcels");
       }
     } catch (error) {
       Swal.fire("Error", "Failed to book parcel.", "error");

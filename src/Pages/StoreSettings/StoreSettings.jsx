@@ -24,11 +24,12 @@ const StoreSettings = () => {
     refetch,
   } = useQuery({
     queryKey: ["merchant-settings", user?.email],
-    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/merchant/${user?.email}`);
       return res.data;
     },
+
+    enabled: !!user && !!user?.accessToken,
   });
 
   const handleUpdate = async (e) => {
@@ -107,7 +108,7 @@ const StoreSettings = () => {
               <span className="bg-[#CAEB66] text-[#02312A] text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
                 {merchantData?.merchantType || "Standard"}
               </span>
-              <span className="text-[10px] text-gray-400 font-bold">
+              <span className="text-[10px] text-gray-400 font-bold uppercase">
                 ID: {merchantData?._id?.slice(-8)}
               </span>
             </div>
