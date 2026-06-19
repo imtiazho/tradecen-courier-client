@@ -108,15 +108,15 @@ const AllParcelsMerchant = () => {
                   key={parcel._id}
                   className="bg-[#FFFFFF] hover:bg-[#F8F9FA]/60 transition-all group"
                 >
-                  <td className="px-6 py-5 rounded-l-[16px] text-xs font-black text-[#02312A]">
+                  <td className="px-6 py-5 rounded-l-[16px] text-xs font-medium text-[#02312A]">
                     #{parcel.trackingID}
                   </td>
                   <td className="px-6 py-5 text-xs font-medium text-[#02312A]">
-                    <p className="font-black text-sm text-[#02312A]">
-                      {parcel.parcelName}
+                    <p className="font-bold text-sm text-[#02312A]">
+                      {parcel.parcelName.length > 18 ? parcel.parcelName.slice(0, 15) + "..." : parcel.parcelName }
                     </p>
                     <Link
-                      className="inline-flex items-center gap-1 mt-1.5 font-bold text-gray-400 hover:text-[#02312A] hover:underline underline-offset-4 transition-all duration-200 cursor-pointer uppercase text-[9px] tracking-wider"
+                      className="inline-flex items-center gap-1 mt-1.5 font-bold text-gray-400 hover:text-[#02312A] hover:underline underline-offset-4 transition-all duration-200 cursor-pointer uppercase text-[8px] tracking-wider"
                       to={`parcel-detail/${parcel._id}`}
                     >
                       <CgDetailsMore size={12} /> View Details
