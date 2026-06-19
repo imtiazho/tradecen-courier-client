@@ -35,6 +35,8 @@ const AllParcelsMerchant = () => {
       );
       return res.data;
     },
+
+    enabled: !!user && !!user?.accessToken,
   });
 
   // Delete Logic
@@ -49,7 +51,7 @@ const AllParcelsMerchant = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const res = await axiosSecure.delete(`/parcel/${id}`);
+        const res = await axiosSecure.delete(`/parcel/${id}?email=${user?.email}`);
         if (res.data.deletedCount > 0) {
           refetch();
           Swal.fire("Deleted!", "Your parcel has been deleted.", "success");
