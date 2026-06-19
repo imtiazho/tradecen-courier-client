@@ -22,7 +22,7 @@ const PickUp = () => {
         ? res.data[0]
         : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user && !!user?.accessToken,
   });
 
   // 2. Fetch Pickup Parcels Data
@@ -38,7 +38,8 @@ const PickUp = () => {
       );
       return Array.isArray(res.data) ? res.data : [];
     },
-    enabled: !!managerData?.hubName,
+    
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   // Action Handle: When Rider brings parcel to hub

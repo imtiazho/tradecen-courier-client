@@ -28,7 +28,7 @@ const DeliveryParcelLocal = () => {
       );
       return Array.isArray(res.data) ? res.data[0] : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user?.email && !!user?.accessToken,
   });
 
   const {
@@ -43,7 +43,7 @@ const DeliveryParcelLocal = () => {
       );
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const { data: riders = [], refetch: refetchRiders } = useQuery({
@@ -54,7 +54,7 @@ const DeliveryParcelLocal = () => {
       );
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const handleCopy = (text) => {

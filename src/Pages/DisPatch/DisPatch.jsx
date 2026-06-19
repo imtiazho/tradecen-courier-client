@@ -19,7 +19,7 @@ const DisPatch = () => {
         ? res.data[0]
         : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user && !!user?.accessToken,
   });
   const {
     isLoading: inHouseLoading,
@@ -34,7 +34,7 @@ const DisPatch = () => {
       return res.data;
     },
 
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const handleSendToDestination = async (id) => {

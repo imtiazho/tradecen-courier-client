@@ -22,7 +22,7 @@ const Incoming = () => {
         ? res.data[0]
         : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user && !!user?.accessToken,
   });
 
   const {
@@ -37,7 +37,7 @@ const Incoming = () => {
       );
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const { data: riders = [], refetch: refetchRiders } = useQuery({
@@ -48,7 +48,7 @@ const Incoming = () => {
       );
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const handleAssignRider = async (rider) => {

@@ -126,7 +126,7 @@ const HubmanagerDashboard = () => {
       },
       enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
     });
-
+    console.log(agingStatusData);
   const {
     isLoading: ridersLoading,
     data: riders = [],
