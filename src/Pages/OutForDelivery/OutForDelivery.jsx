@@ -128,12 +128,12 @@ const OutForDelivery = () => {
                         ? parcel.parcelName.slice(0, 18) + "..."
                         : parcel.parcelName}
                     </span>
-                    <div className="flex items-center gap-2 mt-1 text-[9px] uppercase font-black tracking-wide text-gray-400">
+                    <div className="mt-1 text-[9px] uppercase font-black tracking-wide text-gray-400">
                       <span>Weight: {parcel.parcelWeight} KG</span>
-                      <span>•</span>
+                      {/* <span>•</span>
                       <span className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-100/50">
                         {parcel.parcelType}
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </td>

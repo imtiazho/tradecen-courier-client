@@ -36,7 +36,7 @@ const HubmanagerDashboard = () => {
         ? res.data[0]
         : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user && !!user?.accessToken,
   });
 
   const { isLoading: incomingLoading, data: incomingData = [] } = useQuery({
@@ -47,7 +47,7 @@ const HubmanagerDashboard = () => {
       );
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const { isLoading: inHouseLoading, data: inHouseData = [] } = useQuery({
@@ -58,7 +58,7 @@ const HubmanagerDashboard = () => {
       );
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const { isLoading: outForDeliveryLoading, data: outForDeliveryData = [] } =
@@ -70,7 +70,7 @@ const HubmanagerDashboard = () => {
         );
         return res.data;
       },
-      enabled: !!managerData?.hubName,
+      enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
     });
 
   const { isLoading: hubDeliveredDataLoading, data: hubDeliveredData = [] } =
@@ -82,7 +82,7 @@ const HubmanagerDashboard = () => {
         );
         return Array.isArray(res.data) ? res.data : [];
       },
-      enabled: !!managerData?.hubName,
+      enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
     });
 
   const {
@@ -97,7 +97,7 @@ const HubmanagerDashboard = () => {
       );
       return res.data || {};
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const {
@@ -112,7 +112,7 @@ const HubmanagerDashboard = () => {
       );
       return res.data || {};
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const { isLoading: agingStatusDataLoading, data: agingStatusData = {} } =
@@ -124,7 +124,7 @@ const HubmanagerDashboard = () => {
         );
         return res.data || {};
       },
-      enabled: !!managerData?.hubName,
+      enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
     });
 
   const {
@@ -137,7 +137,7 @@ const HubmanagerDashboard = () => {
       const res = await axiosSecure.get(`/riders?area=${managerData?.hubName}`);
       return Array.isArray(res.data) ? res.data : [];
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const {
@@ -152,7 +152,7 @@ const HubmanagerDashboard = () => {
       );
       return res.data ? res.data : {};
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   const handleDepositToHQ = async () => {
@@ -333,7 +333,7 @@ const HubmanagerDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* CARD 1: Total Hand Cash */}
         <div className="bg-secondary p-8 rounded-tradecen text-white shadow-flat relative overflow-hidden border border-white/5 w-full">
-          <div className="relative z-10 flex flex-col h-full justify-between">
+          <div className="relative flex flex-col h-full justify-between">
             <div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -375,7 +375,7 @@ const HubmanagerDashboard = () => {
 
         {/* CARD 2: HQ Payable Cash */}
         <div className="bg-[#022A24] p-8 rounded-tradecen text-white shadow-flat relative overflow-hidden border border-[#CAEB66]/10">
-          <div className="relative z-10 flex flex-col h-full justify-between">
+          <div className="relative flex flex-col h-full justify-between">
             <div>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-[#CAEB66] rounded-full"></span>
