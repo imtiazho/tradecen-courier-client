@@ -234,26 +234,17 @@ const DeliveryParcelLocal = () => {
               {/* Operation Button */}
               <td className="px-6 py-5 rounded-r-[16px] pr-6">
                 <div className="flex justify-end pr-6 w-full">
-                  {parcel.deliveryStatus === "in-transit" ? (
-                    <button
-                      onClick={() => handleReceiveFromTransit(parcel._id)}
-                      className="w-full max-w-[150px] bg-amber-500 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase flex items-center justify-center gap-2 hover:bg-amber-600 transition-all shadow-sm active:scale-95 cursor-pointer"
-                    >
-                      <FaBoxOpen size={12} /> Receive at Hub
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        setSelectedParcel(parcel);
-                        document
-                          .getElementById("delivery_rider_modal")
-                          .showModal();
-                      }}
-                      className="w-full max-w-[150px] bg-[#CAEB66] text-[#02312A] border border-[#CAEB66]/20 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase hover:shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer transition-all tracking-wider text-center"
-                    >
-                      Assign Delivery
-                    </button>
-                  )}
+                  <button
+                    onClick={() => {
+                      setSelectedParcel(parcel);
+                      document
+                        .getElementById("delivery_rider_modal")
+                        .showModal();
+                    }}
+                    className="w-full max-w-[150px] bg-[#CAEB66] text-[#02312A] border border-[#CAEB66]/20 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase hover:shadow-md hover:scale-[1.02] active:scale-95 cursor-pointer transition-all tracking-wider text-center"
+                  >
+                    Assign Delivery
+                  </button>
                 </div>
               </td>
             </tr>

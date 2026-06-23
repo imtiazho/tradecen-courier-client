@@ -29,7 +29,7 @@ const RiderAreaWise = () => {
         ? res.data[0]
         : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user && !!user?.accessToken,
   });
 
   // 2. Fetch active riders based on Manager's Hub Area
@@ -43,7 +43,7 @@ const RiderAreaWise = () => {
       const res = await axiosSecure.get(`/riders?area=${managerData?.hubName}`);
       return res.data;
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   if (managerLoading || ridersLoading) {

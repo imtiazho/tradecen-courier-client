@@ -22,26 +22,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import DynamicTitle from "../DynamicTitle/DynamicTitle";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import LoadingModal from "../LoadingModal/LoadingModal";
 
-const data = [
-  { name: "Mon", value: 110 },
-  { name: "Tue", value: 160 },
-  { name: "Wed", value: 75 },
-  { name: "Thu", value: 130 },
-  { name: "Fri", value: 155 },
-  { name: "Sat", value: 200 },
-  { name: "Sun", value: 90 },
-];
-
-const invoices = [
-  { no: "#PTD 145142547", price: "4500.00", date: "10 day ago" },
-  { no: "#PTD 145142547", price: "9800.00", date: "1 day ago" },
-  { no: "#PTD 145142547", price: "2000.00", date: "1h ago" },
-  { no: "#PTD 145142547", price: "2700.00", date: "2h ago" },
-  { no: "#PTD 145142547", price: "1500.00", date: "3h ago" },
-  { no: "#PTD 145142547", price: "8500.00", date: "4h ago" },
-];
-
+// Temp Disable
 const alerts = [
   {
     type: "Damaged",
@@ -69,17 +55,61 @@ const alerts = [
   },
 ];
 
-const MerchantState = ({
-  stats,
-  chartData,
-  setTimeFrame,
-  setWeekFrame,
-  totalPages,
-  currentPage,
-  setCurrentPage,
-  shippingData,
-  lateInvoicesData,
-}) => {
+const MerchantState = () => {
+  // Data Loading
+  const { user } = useAuth();
+  const [timeFrame, setTimeFrame] = useState("this-week");
+  const [weekFrame, setWeekFrame] = useState("this-week");
+  const axiosSecure = useAxiosSecure();
+  const [totalParcels, setTotalParcels] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const limit = 10;
+  const { isLoading: statusLoading, data: stats = {} } = useQuery({
+    queryKey: ["statistics", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/parcels/stats/${user.email}`);
+      return res.data;
+    },
+    enabled: !!user && !!user?.accessToken,
+  });
+
+  // merchant
+  const { isLoading: chartLoading, data: chartData = {} } = useQuery({
+    queryKey: ["revenueStats", user?.email, timeFrame],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/revenue/stats/${user?.email}?filter=${timeFrame}`,
+      );
+      return res.data;
+    },
+    enabled: !!user && !!user?.accessToken,
+  });
+
+  // merchant
+  const { isLoading: shippingLoading, data: shippingData = {} } = useQuery({
+    queryKey: ["shippingData", user?.email, weekFrame, currentPage],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `/parcels?email=${user.email}&limit=${limit}&skip=${limit * currentPage}&filter=${weekFrame}`,
+      );
+      setTotalParcels(res.data.count);
+      setTotalPages(Math.ceil(res.data.count / limit));
+      return res.data.data;
+    },
+    enabled: !!user && !!user?.accessToken,
+  });
+
+  const { isLoading: lateInvoicesLoading, data: lateInvoicesData = [] } =
+    useQuery({
+      queryKey: ["lateInvoicesData", user?.email],
+      queryFn: async () => {
+        const res = await axiosSecure.get(`/late-invoices/${user.email}`);
+        return res.data;
+      },
+      enabled: !!user && !!user?.accessToken,
+    });
+
   const [isOpenGraph, setIsOpenGraph] = useState(false);
   const [isOpenShipping, setIsOpenShipping] = useState(false);
   const [selectedGraphMonth, setSelectedGraphMonth] = useState("this-week");
@@ -119,6 +149,9 @@ const MerchantState = ({
       color: "text-green-500",
     },
   ];
+
+  if (shippingLoading || chartLoading || statusLoading)
+    return <LoadingModal isLoading={true}></LoadingModal>;
 
   return (
     <div className="space-y-6 font-sans">
@@ -164,7 +197,7 @@ const MerchantState = ({
       <div className="bg-white p-6 rounded-[20px] border shadow-flat  border-gray-50 w-full">
         <div className="flex items-center justify-between mb-6">
           <h3 className="font-black text-secondary text-base tracking-wide flex items-center gap-1">
-                <div className="w-[6px] h-5 bg-[#CAEB66] rounded-[20px]"></div>
+            <div className="w-[6px] h-5 bg-[#CAEB66] rounded-[20px]"></div>
             Overall Statistics
           </h3>
           <div className="flex items-center gap-3">

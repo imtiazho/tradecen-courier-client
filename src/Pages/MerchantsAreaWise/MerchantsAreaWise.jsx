@@ -30,7 +30,7 @@ const MerchantsAreaWise = () => {
         ? res.data[0]
         : res.data;
     },
-    enabled: !!user?.email,
+    enabled: !!user && !!user?.accessToken,
   });
 
   // 2. Fetch Area Wise Merchants based on dynamic path parameter
@@ -43,7 +43,7 @@ const MerchantsAreaWise = () => {
       );
       return Array.isArray(res.data) ? res.data : [];
     },
-    enabled: !!managerData?.hubName,
+    enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
   // Action Helper: Copy Pickup Address to Clipboard for riders dispatching
