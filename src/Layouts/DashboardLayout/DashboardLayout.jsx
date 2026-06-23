@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "../../Components/Shared/NavBar/NavBar";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
@@ -184,15 +184,7 @@ const DashboardLayout = () => {
   const { dbUser, loading: authLoading, setLoading, handleLogOut } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { role } = useRole();
-
-  // const { data: merchant = {}, isLoading: merchantLoading } = useQuery({
-  //   queryKey: ["merchant", dbUser?.email],
-  //   queryFn: async () => {
-  //     const res = await axiosSecure.get(`/user/${dbUser?.email}`);
-  //     return res.data;
-  //   },
-  //   enabled: !!dbUser?.email && !authLoading,
-  // });
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const menuItems = roleMenuItems[role] || [];
 
@@ -219,6 +211,7 @@ const DashboardLayout = () => {
 
   const handleSignOut = async () => {
     try {
+      navigate('/')
       await handleLogOut();
 
       Swal.fire({

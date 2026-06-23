@@ -341,7 +341,12 @@ const MerchantState = () => {
             </ResponsiveContainer>
           ) : (
             <div className="flex h-full items-center justify-center text-gray-400">
-              No revenue data available for this week.
+              <div className="flex flex-col items-center justify-center text-gray-400 gap-2">
+                <span className="text-3xl">📄</span>
+                <p className="text-xs font-bold uppercase tracking-widest">
+                  No late Statistics data available
+                </p>
+              </div>
             </div>
           )}
         </div>
