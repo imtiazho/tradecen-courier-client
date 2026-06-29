@@ -73,23 +73,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // To solve state management problem in navbar
-  //   const { data: dbUser = null, refetch: refetchDbUser } = useQuery({
-  //   queryKey: ["dbUser", user?.email],
-  //   queryFn: async () => {
-  //     if (!user || !user.email) return null;
-
-  //     const token = user.accessToken;
-  //     const res = await axios.get(`http://localhost:5000/user/${user.email}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     return res.data;
-  //   },
-  //   enabled: !!user && !!user?.email,
-  // });
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {

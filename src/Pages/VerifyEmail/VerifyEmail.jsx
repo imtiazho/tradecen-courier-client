@@ -20,8 +20,6 @@ const VerifyEmail = () => {
         );
 
         if (res.data.modifiedCount > 0 || res.data.matchedCount > 0) {
-          // setDbUser({ ...dbUser, isOnboarded: true });
-
           Swal.fire({
             title: "Verified!",
             text: "Your email is verified. Welcome!",
@@ -29,8 +27,8 @@ const VerifyEmail = () => {
             timer: 2000,
             showConfirmButton: false,
           });
-
-          navigate("/dashboard");
+          
+          navigate("/");
         }
       } else {
         Swal.fire(
@@ -76,7 +74,7 @@ const VerifyEmail = () => {
 
         <button
           onClick={checkVerification}
-          className="w-full bg-[#02312A] text-white font-bold py-4 rounded-2xl hover:bg-[#034d42] transition-all transform active:scale-95 shadow-lg shadow-green-100"
+          className="w-full bg-[#02312A] text-white font-bold py-4 rounded-2xl hover:bg-[#034d42] transition-all transform active:scale-95 shadow-lg shadow-green-100 cursor-pointer"
         >
           I've Clicked the Link
         </button>

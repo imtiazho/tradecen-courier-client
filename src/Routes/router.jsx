@@ -97,35 +97,35 @@ export const router = createBrowserRouter([
       {
         path: "role-onboarding",
         element: (
-          <RoleSelection></RoleSelection>
-          // <VerifiedUserRoute>
-          // </VerifiedUserRoute>
+          <VerifiedUserRoute>
+            <RoleSelection></RoleSelection>
+          </VerifiedUserRoute>
         ),
       },
       {
         path: "be-rider",
         loader: () => fetch("warehouses.json").then((res) => res.json()),
         element: (
-          <RiderRegistration></RiderRegistration>
-          // <VerifiedUserRoute>
-          // </VerifiedUserRoute>
+          <VerifiedUserRoute>
+            <RiderRegistration></RiderRegistration>
+          </VerifiedUserRoute>
         ),
       },
       {
         path: "be-merchant",
         loader: () => fetch("warehouses.json").then((res) => res.json()),
         element: (
-          <MerchantRegistration></MerchantRegistration>
-          // <VerifiedUserRoute>
-          // </VerifiedUserRoute>
+          <VerifiedUserRoute>
+            <MerchantRegistration></MerchantRegistration>
+          </VerifiedUserRoute>
         ),
       },
       {
         path: "profile",
         element: (
-          <ProfilePage></ProfilePage>
-          // <VerifiedUserRoute>
-          // </VerifiedUserRoute>
+          <VerifiedUserRoute>
+            <ProfilePage></ProfilePage>
+          </VerifiedUserRoute>
         ),
       },
       {
@@ -161,10 +161,10 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      // <VerifiedUserRoute>
-      //   <DashboardLayout></DashboardLayout>
-      // </VerifiedUserRoute>
-      <DashboardLayout></DashboardLayout>
+      <VerifiedUserRoute>
+        <DashboardLayout></DashboardLayout>
+      </VerifiedUserRoute>
+      // <DashboardLayout></DashboardLayout>
     ),
     children: [
       {

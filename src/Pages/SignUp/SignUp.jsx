@@ -76,7 +76,6 @@ const SignUp = () => {
       const dbRes = await axiosSecure.post("/users", userInfo);
       if (dbRes.data.insertedId) {
         setDbUser(userInfo);
-        navigate(from, { replace: true });
         Swal.fire({
           title: "Success!",
           text: "Account created successfully",
@@ -84,6 +83,7 @@ const SignUp = () => {
           timer: 1500,
           showConfirmButton: false,
         });
+        navigate(from, { replace: true });
       }
     } catch (error) {
       console.error("Signup Error:", error);

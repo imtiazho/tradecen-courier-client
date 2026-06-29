@@ -7,8 +7,21 @@ import { BsBuildingFillAdd } from "react-icons/bs";
 import logo from "../../../assets/logo.png";
 
 const NavBar = () => {
-  const { user, dbUser, handleLogOut } = useAuth();
+  const { user, dbUser, handleLogOut, fetchDbUser } = useAuth();
   const currentRole = dbUser?.role || "user";
+  useEffect(() => {
+    if (dbUser?.role === "pending-rider") {
+      const interval = setInterval(async () => {
+        await fetchDbUser(user);
+      }, 15000);
+
+      if (dbUser?.status === "approved") {
+        clearInterval(interval);
+      }
+
+      return () => clearInterval(interval);
+    }
+  }, [dbUser, user, fetchDbUser]);
 
   const list = (
     <>
@@ -203,7 +216,7 @@ const NavBar = () => {
                   </Link>
                 </li>
 
-                {currentRole === "user" ? (
+                {currentRole === "user" || currentRole === "pending-rider" ? (
                   <li>
                     <Link
                       to="/role-onboarding"

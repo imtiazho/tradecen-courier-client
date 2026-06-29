@@ -20,7 +20,7 @@ const ErrorMsg = ({ errors, name }) => {
 };
 
 const RiderRegistration = () => {
-  const { user, setLoading, loading: mainLoading } = useAuth();
+  const { user, setLoading, loading: mainLoading, fetchDbUser } = useAuth();
   const navigate = useNavigate();
   const {
     register,
@@ -125,7 +125,7 @@ const RiderRegistration = () => {
 
     axiosSecure
       .post("/riders", newRider)
-      .then((res) => {
+      .then(async (res) => {
         if (res.data.insertedId) {
           Swal.fire({
             icon: "success",
@@ -135,6 +135,7 @@ const RiderRegistration = () => {
             timer: 2000,
           });
           navigate("/");
+          await fetchDbUser(user);
         } else if (res.data.message) {
           const isEmailError = res.data.message.toLowerCase().includes("email");
           Swal.fire({

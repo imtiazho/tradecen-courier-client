@@ -50,30 +50,30 @@ const RiderRequest = () => {
     }
   };
 
-  const handleReject = async (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "This rider request will be deleted!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, Reject!",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await axiosSecure.delete(`/riders/${id}`);
-          if (response.data.deletedCount > 0) {
-            Swal.fire("Rejected!", "Rider request removed.", "success");
-            refetch();
-          }
-        } catch (error) {
-          console.error("Reject Error:", error);
-          Swal.fire("Error!", "Something went wrong.", "error");
-        }
-      }
-    });
-  };
+  // const handleReject = async (id) => {
+  //   Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "This rider request will be deleted!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#d33",
+  //     cancelButtonColor: "#3085d6",
+  //     confirmButtonText: "Yes, Reject!",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       try {
+  //         const response = await axiosSecure.delete(`/riders/${id}`);
+  //         if (response.data.deletedCount > 0) {
+  //           Swal.fire("Rejected!", "Rider request removed.", "success");
+  //           refetch();
+  //         }
+  //       } catch (error) {
+  //         console.error("Reject Error:", error);
+  //         Swal.fire("Error!", "Something went wrong.", "error");
+  //       }
+  //     }
+  //   });
+  // };
 
   if (ridersLoading) {
     return <LoadingModal isLoading={true}></LoadingModal>;
@@ -163,12 +163,12 @@ const RiderRequest = () => {
                     >
                       <RiCheckLine size={18} />
                     </button>
-                    <button
+                    {/* <button
                       onClick={() => handleReject(rider._id)}
                       className="p-2.5 text-red-500 bg-red-50 rounded-xl transition-colors border border-transparent border-red-100 cursor-pointer"
                     >
                       <RiCloseLine size={18} />
-                    </button>
+                    </button> */}
                   </div>
                 </td>
               </tr>
