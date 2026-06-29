@@ -136,15 +136,15 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "send-parcel",
-        loader: () => fetch("warehouses.json").then((res) => res.json()),
-        element: (
-          <SendParcel></SendParcel>
-          // <VerifiedUserRoute>
-          // </VerifiedUserRoute>
-        ),
-      },
+      // {
+      //   path: "send-parcel",
+      //   loader: () => fetch("warehouses.json").then((res) => res.json()),
+      //   element: (
+      //     <SendParcel></SendParcel>
+      //     // <VerifiedUserRoute>
+      //     // </VerifiedUserRoute>
+      //   ),
+      // },
     ],
   },
   {

@@ -10,7 +10,7 @@ const NavBar = () => {
   const { user, dbUser, handleLogOut, fetchDbUser } = useAuth();
   const currentRole = dbUser?.role || "user";
   useEffect(() => {
-    if (dbUser?.role === "pending-rider") {
+    if (dbUser?.role === "pending-rider" || dbUser?.role === "user") {
       const interval = setInterval(async () => {
         await fetchDbUser(user);
       }, 15000);

@@ -19,7 +19,7 @@ const ErrorMsg = ({ errors, name }) => {
 };
 
 const MerchantRegistration = () => {
-  const { user, setLoading, loading: mainLoading } = useAuth();
+  const { user, setLoading, loading: mainLoading, fetchDbUser } = useAuth();
   const axiosSecure = useAxiosSecure();
   const areaAndLocation = useLoaderData() || [];
   const navigate = useNavigate();
@@ -93,7 +93,7 @@ const MerchantRegistration = () => {
 
     axiosSecure
       .post("/merchants", newMerchant)
-      .then((res) => {
+      .then(async (res) => {
         if (res.data.insertedId) {
           Swal.fire({
             icon: "success",
@@ -102,6 +102,7 @@ const MerchantRegistration = () => {
             showConfirmButton: false,
             timer: 3000,
           });
+          await fetchDbUser(user);
           navigate("/");
         } else if (res.data.message) {
           const isEmailError = res.data.message.toLowerCase().includes("email");
