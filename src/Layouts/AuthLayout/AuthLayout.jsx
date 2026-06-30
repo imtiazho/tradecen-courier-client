@@ -25,7 +25,7 @@ const AuthLayout = () => {
         <div className="relative w-full max-w-lg">
           {/* This is where you will add your <img> tag for image_edc1c4.png */}
           <div
-            className="aspect-square bg-contain bg-no-repeat bg-center opacity-90 transition-opacity hover:opacity-100"
+            className="aspect-square bg-contain bg-no-repeat bg-center"
             style={{ backgroundImage: `url('/path-to-your-image.png')` }}
           >
             <img src={AuthImg} alt="" />

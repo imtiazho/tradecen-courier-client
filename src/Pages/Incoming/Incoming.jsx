@@ -213,7 +213,7 @@ const Incoming = () => {
                           className={`w-full max-w-[130px] py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shadow-sm ${
                             parcel.deliveryStatus === "parcel-created"
                               ? "bg-[#CAEB66] text-[#02312A] border border-[#CAEB66]/20 hover:scale-[1.02] active:scale-95 cursor-pointer"
-                              : "bg-gray-50 text-gray-400 border border-gray-100 cursor-not-allowed shadow-none"
+                              : "bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed font-medium rounded-[10px] transition-all duration-200 opacity-75 shadow-none"
                           }`}
                           onClick={() => {
                             setSelectedParcel(parcel);

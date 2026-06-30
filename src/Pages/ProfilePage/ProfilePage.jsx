@@ -79,7 +79,7 @@ const ProfilePage = () => {
               <input
                 {...register("displayName")}
                 disabled={!isEditing}
-                value={dbUser?.displayName || user?.displayName}
+                defaultValue={dbUser?.displayName || user?.displayName}
                 className={`w-full mt-1 p-3 rounded-xl border-2 transition-all ${
                   isEditing
                     ? "border-[#CAEB66] bg-white"
