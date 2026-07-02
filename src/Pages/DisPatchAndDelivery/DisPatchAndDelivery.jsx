@@ -32,6 +32,11 @@ const DispatchAndDelivery = () => {
       path: "delivery-local",
       desc: "Parcels to be delivered to destination",
     },
+    {
+      name: "Return",
+      path: "return-merchant",
+      desc: "Parcels to be return to merchants",
+    },
   ];
 
   return (

@@ -64,6 +64,7 @@ import ProfileWallet from "../Pages/ProfileWallet/ProfileWallet";
 import AllMerchants from "../Pages/AllMerchants/AllMerchants";
 import AllRiders from "../Pages/AllRiders/AllRiders";
 import RiderReturnReq from "../Pages/RiderReturnReq/RiderReturnReq";
+import ReturnLocal from "../Pages/ReturnLocal/ReturnLocal";
 
 export const router = createBrowserRouter([
   {
@@ -339,6 +340,10 @@ export const router = createBrowserRouter([
           {
             path: "delivery-local",
             element: <DeliveryParcelLocal></DeliveryParcelLocal>,
+          },
+          {
+            path: "return-merchant",
+            element: <ReturnLocal></ReturnLocal>,
           },
         ],
       },
