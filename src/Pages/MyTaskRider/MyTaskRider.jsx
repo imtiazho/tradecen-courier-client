@@ -39,7 +39,7 @@ const MyTaskRider = () => {
       return res.data[0];
     },
   });
-  
+  console.log(riderData);
   const handlePickedUp = async (parcelId, trackingID) => {
     try {
       const res = await axiosSecure.patch("/riders/complete-pickup/update", {
@@ -368,15 +368,17 @@ const MyTaskRider = () => {
                       </button>
 
                       {/* Return Request Button */}
-                      <button
-                        onClick={() =>
-                          handleReturnReq(task.parcelId, task.trackingID)
-                        }
-                        className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1"
-                      >
-                        <RiArrowGoBackLine size={11} />
-                        To Return
-                      </button>
+                      {activeTab !== "pickup" && (
+                        <button
+                          onClick={() =>
+                            handleReturnReq(task.parcelId, task.trackingID)
+                          }
+                          className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1"
+                        >
+                          <RiArrowGoBackLine size={11} />
+                          To Return
+                        </button>
+                      )}
                     </div>
                   </div>
                 </td>

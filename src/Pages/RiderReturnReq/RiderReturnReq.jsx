@@ -3,7 +3,6 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import LoadingModal from "../../Components/LoadingModal/LoadingModal";
-import Swal from "sweetalert2";
 
 import {
   FaBarcode,
@@ -12,13 +11,13 @@ import {
   FaMapMarkerAlt,
   FaBoxOpen,
   FaPhoneAlt,
-  FaUndoAlt,
 } from "react-icons/fa";
 import {
   RiMap2Line,
   RiMap2Fill,
   RiCloseLine,
   RiNavigationFill,
+  RiTimeLine,
 } from "react-icons/ri";
 
 const RiderReturnReq = () => {
@@ -26,15 +25,14 @@ const RiderReturnReq = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedMapLocation, setSelectedMapLocation] = useState(null);
 
-  // Rider er shob data query kora hocche holds page er motoi
+  // Rider er shob data query kora hocche
   const {
     isLoading: riderLoading,
     data: riderAllData = {},
-    refetch,
   } = useQuery({
     queryKey: ["riderAllData", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/rider/${user.email}`);
+      const res = await axiosSecure.get(`/riders?email=${user?.email}`);
       return Array.isArray(res.data) && res.data.length > 0
         ? res.data[0]
         : res.data;
@@ -42,26 +40,7 @@ const RiderReturnReq = () => {
     enabled: !!user?.email,
   });
 
-  // Return parcels er collection fetch kora hocche line 38 e
-  const returnParcels = riderAllData?.returnParcels || [];
-
-  // Return complete handle korar function
-  const handleReturnComplete = async (parcelId, trackingID) => {
-    try {
-      const res = await axiosSecure.patch("/riders/return-complete/update", {
-        riderId: riderAllData?.riderData._id,
-        parcelId,
-        trackingID,
-      });
-
-      if (res.data.success) {
-        Swal.fire("Success", "Parcel successfully returned to hub!", "success");
-        refetch();
-      }
-    } catch (error) {
-      Swal.fire("Error", "Failed to update return status!", "error");
-    }
-  };
+  const returnParcels = riderAllData?.returnLedger || [];
 
   if (riderLoading) return <LoadingModal isLoading={true}></LoadingModal>;
 
@@ -73,7 +52,7 @@ const RiderReturnReq = () => {
             Rider Return Ledger
           </h2>
           <p className="text-gray-500 text-sm">
-            Manage and process shipments requests marked for return to the merchant or hub.
+            List of parcels requested for return. Please hand these over physically to the hub manager to clear your ledger.
           </p>
         </div>
       </div>
@@ -86,7 +65,8 @@ const RiderReturnReq = () => {
               <th className="px-6 py-2">Client Info</th>
               <th className="px-6 py-2">Return Destination</th>
               <th className="px-6 py-2">COD Amount</th>
-              <th className="px-6 py-2 text-center">Actions Terminal</th>
+              {/* Actions Terminal পরিবর্তন করে Handover Status করা হলো */}
+              <th className="px-6 py-2 text-center">Handover Status</th>
             </tr>
           </thead>
           <tbody>
@@ -109,8 +89,8 @@ const RiderReturnReq = () => {
                     <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold">
                       <FaClock size={10} />
                       <span>
-                        {task.assignedAt
-                          ? new Date(task.assignedAt).toLocaleTimeString([], {
+                        {task.requestedAt
+                          ? new Date(task.requestedAt).toLocaleTimeString([], {
                               hour: "2-digit",
                               minute: "2-digit",
                             })
@@ -131,21 +111,41 @@ const RiderReturnReq = () => {
                           task.consumerName ||
                           "Walk-in Client"}
                       </p>
+                      {/* কল করার কুইক ইউটিলিটি ছোট করে নামের নিচে দিয়ে দেওয়া হলো */}
+                      <a
+                        href={`tel:${task.merchantPhone || task.consumerPhone}`}
+                        className="text-[10px] text-gray-400 font-bold hover:text-[#02312A] transition-all flex items-center gap-1 mt-0.5"
+                      >
+                        <FaPhoneAlt size={8} /> Call
+                      </a>
                     </div>
                   </div>
                 </td>
 
                 <td className="px-6 py-4 text-xs text-[#02312A] max-w-[220px]">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-start gap-1.5">
                     <FaMapMarkerAlt
                       className="text-[#02312A] mt-0.5 shrink-0"
                       size={13}
                     />
-                    <p className="text-xs text-gray-600 font-medium leading-tight line-clamp-2">
-                      {task.pickupLocation ||
-                        task.deliveryLocation ||
-                        "Hub Office"}
-                    </p>
+                    <div className="space-y-0.5">
+                      <p className="text-xs text-gray-600 font-medium leading-tight line-clamp-2">
+                        {task.pickupLocation ||
+                          task.deliveryLocation ||
+                          "Hub Office"}
+                      </p>
+                      {/* ম্যাপ দেখার বাটনটি সরাসরি লোকেশনের নিচে টেক্সট আকারে ইন্টিগ্রেট করা হলো */}
+                      <button
+                        onClick={() =>
+                          setSelectedMapLocation(
+                            task.pickupLocation || task.deliveryLocation
+                          )
+                        }
+                        className="text-[10px] text-gray-400 font-bold hover:text-[#02312A] transition-all flex items-center gap-1"
+                      >
+                        <RiMap2Line size={10} /> View Map
+                      </button>
+                    </div>
                   </div>
                 </td>
 
@@ -155,36 +155,10 @@ const RiderReturnReq = () => {
                   </span>
                 </td>
 
-                <td className="px-6 py-4 rounded-r-xl">
-                  <div className="flex items-center justify-center gap-2">
-                    <a
-                      href={`tel:${task.merchantPhone || task.consumerPhone}`}
-                      className="p-2.5 bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-md transition-all cursor-pointer"
-                      title="Call Client"
-                    >
-                      <FaPhoneAlt size={12} />
-                    </a>
-
-                    <button
-                      onClick={() =>
-                        setSelectedMapLocation(
-                          task.pickupLocation || task.deliveryLocation,
-                        )
-                      }
-                      className="p-2.5 bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-md transition-all cursor-pointer"
-                    >
-                      <RiMap2Line size={15} />
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        handleReturnComplete(task.parcelId, task.trackingID)
-                      }
-                      className="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer flex items-center gap-2 shadow-sm"
-                    >
-                      <FaUndoAlt size={11} />
-                      Complete Return
-                    </button>
+                <td className="px-6 py-4 rounded-r-xl text-center">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200/60 rounded-md text-[11px] font-black tracking-wide uppercase">
+                    <RiTimeLine size={12} className="animate-spin text-amber-600" style={{ animationDuration: '3s' }} />
+                    Pending Hub Receive
                   </div>
                 </td>
               </tr>
@@ -201,7 +175,7 @@ const RiderReturnReq = () => {
               Return ledger is completely empty
             </h3>
             <p className="text-gray-400 text-xs font-bold max-w-[320px] mx-auto mt-1.5 leading-relaxed">
-              No return tasks assigned. All shipments are safely delivered or currently on course.
+              No pending return tasks. All return shipments have been successfully handed over and cleared by the hub manager.
             </p>
           </div>
         )}
@@ -235,7 +209,7 @@ const RiderReturnReq = () => {
 
           <div className="w-full h-[260px] bg-gray-100 relative border-b border-gray-100">
             <iframe
-              title="TradeCen Return Navigation"
+              title="ZapShift Return Navigation"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -243,18 +217,18 @@ const RiderReturnReq = () => {
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
               src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                selectedMapLocation + ", Dhaka, Bangladesh",
+                selectedMapLocation + ", Dhaka, Bangladesh"
               )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
             ></iframe>
           </div>
 
           <div className="p-2.5 bg-gray-50 flex items-center justify-between gap-3">
             <div className="text-[10px] text-gray-400 font-bold pl-1.5 uppercase tracking-wide hidden sm:block">
-              TradeCen Routing Engine v1.0
+              ZapShift Routing Engine v1.0
             </div>
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                selectedMapLocation + ", Dhaka, Bangladesh",
+                selectedMapLocation + ", Dhaka, Bangladesh"
               )}`}
               target="_blank"
               rel="noreferrer"
