@@ -90,9 +90,9 @@ const ReturnLocal = () => {
         riderPhone: rider.phone,
         trackingID: selectedParcel.trackingID,
       };
-
+      
       const res = await axiosSecure.patch(
-        "/parcels/assign-return-rider", //
+        "/parcels/assign-return-delivery", //
         assignmentData,
       );
 
@@ -249,7 +249,7 @@ const ReturnLocal = () => {
                 ✕
               </button>
             </form>
-            <div className="w-16 h-16 bg-rose-500 rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 shadow-lg transform rotate-3">
+            <div className="w-16 h-16 bg-secondary rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 shadow-lg transform rotate-3">
               <MdPedalBike size={30} className="text-white" />
             </div>
             <h3 className="font-black text-secondary text-xl uppercase tracking-tight flex items-center justify-center gap-2">
@@ -257,7 +257,7 @@ const ReturnLocal = () => {
             </h3>
             <p className="text-gray-300 text-xs font-bold uppercase tracking-widest mt-1 text-secondary">
               Return ID:{" "}
-              <span className="text-rose-600 font-mono font-black">
+              <span className="text-secondary font-mono font-black">
                 #{selectedParcel?.trackingID}
               </span>
             </p>
@@ -278,7 +278,7 @@ const ReturnLocal = () => {
             <div className="grid grid-cols-1 gap-2.5 max-h-64 overflow-y-auto pr-1 custom-scrollbar">
               {riders?.length > 0 ? (
                 riders.map((rider) => {
-                  const isOverloaded = (rider.currentTasks || 0) >= 3;
+                  const isOverloaded = (rider.currentTasks || 0) >= 8;
                   return (
                     <div
                       key={rider._id}
