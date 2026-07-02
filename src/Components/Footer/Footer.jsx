@@ -89,7 +89,7 @@ const Footer = () => {
         <p>© 2026 TradeCen Logistics. All rights reserved.</p>
         <p className="mt-2 md:mt-0 tracking-wider uppercase">
           Developed by{" "}
-          <span className="text-[#0D2E2E] font-black hover:text-[#CAEB66] transition-colors cursor-pointer">
+          <span className="text-[#0D2E2E] font-black cursor-pointer">
             @imtiazho
           </span>
         </p>

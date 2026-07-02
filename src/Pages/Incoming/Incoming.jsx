@@ -50,7 +50,7 @@ const Incoming = () => {
     },
     enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
-
+  
   const handleAssignRider = async (rider) => {
     const assignInfo = {
       parcelId: selectedParcel._id,
