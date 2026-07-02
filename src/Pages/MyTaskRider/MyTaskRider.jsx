@@ -14,6 +14,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import LoadingModal from "../../Components/LoadingModal/LoadingModal";
 import {
+  RiArrowGoBackLine,
   RiCloseLine,
   RiMap2Fill,
   RiMap2Line,
@@ -38,7 +39,7 @@ const MyTaskRider = () => {
       return res.data[0];
     },
   });
-
+  
   const handlePickedUp = async (parcelId, trackingID) => {
     try {
       const res = await axiosSecure.patch("/riders/complete-pickup/update", {
@@ -53,6 +54,45 @@ const MyTaskRider = () => {
       }
     } catch (error) {
       Swal.fire("Error", "Something went wrong!", "error");
+    }
+  };
+
+  const handleReturnReq = async (parcelId, trackingID) => {
+    const confirmResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to request a return for this parcel to the hub?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#02312A",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Request Return",
+    });
+
+    if (!confirmResult.isConfirmed) return;
+
+    try {
+      const res = await axiosSecure.patch("/riders/return-req/update", {
+        riderId: riderData._id,
+        parcelId,
+        trackingID,
+      });
+
+      if (res.data.success) {
+        Swal.fire({
+          title: "Return Requested",
+          text: "Return request submitted! Please hand over the parcel to the hub manager.",
+          icon: "success",
+          confirmButtonColor: "#02312A",
+        });
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Request Failed",
+        text: "Something went wrong while processing the return request!",
+        icon: "error",
+        confirmButtonColor: "#02312A",
+      });
     }
   };
 
@@ -270,59 +310,74 @@ const MyTaskRider = () => {
                 </td>
 
                 {/* COLUMN 5: LIVE ACTIONS INTERFACE */}
-                <td className="px-6 py-4 rounded-r-xl">
-                  <div className="flex items-center justify-center gap-2">
-                    {/* 📞 Quick Call */}
-                    <a
-                      href={`tel:${task.merchantPhone || task.consumerPhone}`}
-                      className="p-2.5 bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-md transition-all cursor-pointer"
-                      title="Call Client"
-                    >
-                      <FaPhoneAlt size={12} />
-                    </a>
+                <td className="px-6 py-4 rounded-r-xl max-w-[240px]">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      {/* 📞 Quick Call */}
+                      <a
+                        href={`tel:${task.merchantPhone || task.consumerPhone}`}
+                        className="flex-1 py-2 flex justify-center bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-md transition-all cursor-pointer border border-gray-100"
+                        title="Call Client"
+                      >
+                        <FaPhoneAlt size={12} />
+                      </a>
 
-                    {/* 🗺️ Live Navigation Map */}
-                    <button
-                      onClick={() =>
-                        setSelectedMapLocation(
-                          task.deliveryLocation || task.pickupLocation,
-                        )
-                      }
-                      className="p-2.5 bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-md transition-all cursor-pointer"
-                    >
-                      <RiMap2Line size={15} />
-                    </button>
+                      {/* 🗺️ Live Navigation Map */}
+                      <button
+                        onClick={() =>
+                          setSelectedMapLocation(
+                            task.deliveryLocation || task.pickupLocation,
+                          )
+                        }
+                        className="flex-1 py-2 flex justify-center bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-md transition-all cursor-pointer border border-gray-100"
+                        title="View Map"
+                      >
+                        <RiMap2Line size={14} />
+                      </button>
 
-                    {activeTab === "delivery" &&
-                      (task.isHold ? (
-                        <span
-                          className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 text-xs font-bold px-3 py-2 rounded-md transition-all cursor-pointer"
-                          title="Put on Hold"
-                        >
-                          Holded Up
-                        </span>
-                      ) : (
-                        <button
-                          onClick={() => handleHoldUp(task.parcelId)}
-                          className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 text-xs font-bold px-3 py-2 rounded-md transition-all cursor-pointer"
-                          title="Put on Hold"
-                        >
-                          Hold
-                        </button>
-                      ))}
+                      {activeTab === "delivery" && (
+                        <div className="flex-1 flex">
+                          {task.isHold ? (
+                            <span className="w-full text-center bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-bold py-1.5 rounded-md">
+                              On Hold
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleHoldUp(task.parcelId)}
+                              className="w-full text-center bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 border border-amber-500/20 text-[11px] font-bold py-1.5 rounded-md transition-all cursor-pointer"
+                            >
+                              Hold
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </div>
 
-                    {/* Action Button */}
-                    <button
-                      onClick={() =>
-                        activeTab === "pickup"
-                          ? handlePickedUp(task.parcelId, task.trackingID)
-                          : handleDelivered(task.parcelId, task.trackingID)
-                      }
-                      className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer flex items-center gap-2"
-                    >
-                      <FaCheckCircle size={12} />
-                      {activeTab === "pickup" ? "Picked" : "Delivered"}
-                    </button>
+                    <div className="grid grid-cols-2 gap-2">
+                      {/* Action Button: Picked / Delivered */}
+                      <button
+                        onClick={() =>
+                          activeTab === "pickup"
+                            ? handlePickedUp(task.parcelId, task.trackingID)
+                            : handleDelivered(task.parcelId, task.trackingID)
+                        }
+                        className="bg-primary text-secondary text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
+                      >
+                        <FaCheckCircle size={11} />
+                        {activeTab === "pickup" ? "Pick" : "Mark Deliver"}
+                      </button>
+
+                      {/* Return Request Button */}
+                      <button
+                        onClick={() =>
+                          handleReturnReq(task.parcelId, task.trackingID)
+                        }
+                        className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1"
+                      >
+                        <RiArrowGoBackLine size={11} />
+                        To Return
+                      </button>
+                    </div>
                   </div>
                 </td>
               </tr>

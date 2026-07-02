@@ -123,6 +123,7 @@ const SendParcel = () => {
       isDepositedToHQ: false,
       deliveryChargeOnlinePaymentStatus: false,
       inCity: merchant?.area === data.receiverArea,
+      isReturnRequested: false,
 
       // 👤 Sender (Merchant) Details
       senderInfo: {

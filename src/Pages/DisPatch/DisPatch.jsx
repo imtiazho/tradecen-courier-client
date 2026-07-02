@@ -36,7 +36,7 @@ const DisPatch = () => {
 
     enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
-  console.log(inHouse);
+  
   const handleSendToDestination = async (id) => {
     try {
       const res = await axiosSecure.patch(`/parcels/dispatch/${id}`);

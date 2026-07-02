@@ -63,6 +63,7 @@ import RiderMyEarning from "../Pages/RiderMyEarning/RiderMyEarning";
 import ProfileWallet from "../Pages/ProfileWallet/ProfileWallet";
 import AllMerchants from "../Pages/AllMerchants/AllMerchants";
 import AllRiders from "../Pages/AllRiders/AllRiders";
+import RiderReturnReq from "../Pages/RiderReturnReq/RiderReturnReq";
 
 export const router = createBrowserRouter([
   {
@@ -286,6 +287,10 @@ export const router = createBrowserRouter([
       {
         path: "my-task",
         element: <MyTaskRider></MyTaskRider>,
+      },
+      {
+        path: "return-req",
+        element: <RiderReturnReq></RiderReturnReq>,
       },
       {
         path: "return-parcels",

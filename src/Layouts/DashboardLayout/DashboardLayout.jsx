@@ -44,7 +44,7 @@ import { FaBox, FaUserTie } from "react-icons/fa6";
 import ScrollToTop from "../../Components/ScrollToTop/ScrollToTop";
 
 const roleMenuItems = {
-  "admin": [
+  admin: [
     {
       name: "Overview Dashboard",
       icon: <RiDashboardFill size={22} />,
@@ -124,6 +124,11 @@ const roleMenuItems = {
       name: "My Task List",
       icon: <RiListCheck2 size={22} />,
       path: "/dashboard/my-task",
+    },
+    {
+      name: "Return Requests",
+      icon: <RiArrowGoBackLine size={22} />,
+      path: "/dashboard/return-req",
     },
     {
       name: "COD Collection",
@@ -211,7 +216,7 @@ const DashboardLayout = () => {
 
   const handleSignOut = async () => {
     try {
-      navigate('/')
+      navigate("/");
       await handleLogOut();
 
       Swal.fire({
