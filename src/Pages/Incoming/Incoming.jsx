@@ -50,7 +50,7 @@ const Incoming = () => {
     },
     enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
-  
+
   const handleAssignRider = async (rider) => {
     const assignInfo = {
       parcelId: selectedParcel._id,
@@ -95,6 +95,31 @@ const Incoming = () => {
       }
     } catch (error) {
       Swal.fire("Error", "Could not mark as received", "error");
+    }
+  };
+
+  const handleReturnReceiveAtHub = async (id) => {
+    try {
+      const res = await axiosSecure.patch(
+        `/parcels/return-origin-hub/received/${id}`,
+      );
+
+      if (res.data.success) {
+        Swal.fire({
+          title: "Return Received!",
+          text: "Return parcel safely received at hub ledger and cleared from rider.",
+          icon: "success",
+          confirmButtonColor: "#002B36",
+        });
+        refetchParcels();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.response?.data?.message || "Could not accept return parcel",
+        icon: "error",
+        confirmButtonColor: "#002B36",
+      });
     }
   };
 
@@ -207,7 +232,14 @@ const Incoming = () => {
 
                   <td className="px-6 py-5 rounded-r-[16px] pr-6">
                     <div className="flex justify-end pr-6 w-full">
-                      {managerData?.hubName === parcel.senderInfo?.area ? (
+                      {parcel.isReturnRequested === true ? (
+                        <button
+                          onClick={() => handleReturnReceiveAtHub(parcel._id)}
+                          className="w-full max-w-[130px] bg-red-500 text-white border border-red-600 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider hover:bg-red-600 active:scale-95 cursor-pointer transition-all shadow-sm"
+                        >
+                          Receive Return
+                        </button>
+                      ) : managerData?.hubName === parcel.senderInfo?.area ? (
                         <button
                           disabled={parcel.deliveryStatus !== "parcel-created"}
                           className={`w-full max-w-[130px] py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all shadow-sm ${
