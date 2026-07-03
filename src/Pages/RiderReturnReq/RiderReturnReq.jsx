@@ -25,11 +25,7 @@ const RiderReturnReq = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedMapLocation, setSelectedMapLocation] = useState(null);
 
-  // Rider er shob data query kora hocche
-  const {
-    isLoading: riderLoading,
-    data: riderAllData = {},
-  } = useQuery({
+  const { isLoading: riderLoading, data: riderAllData = {} } = useQuery({
     queryKey: ["riderAllData", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/riders?email=${user?.email}`);
@@ -52,7 +48,8 @@ const RiderReturnReq = () => {
             Rider Return Ledger
           </h2>
           <p className="text-gray-500 text-sm">
-            List of parcels requested for return. Please hand these over physically to the hub manager to clear your ledger.
+            List of parcels requested for return. Please hand these over
+            physically to the hub manager to clear your ledger.
           </p>
         </div>
       </div>
@@ -107,11 +104,9 @@ const RiderReturnReq = () => {
                     </div>
                     <div>
                       <p className="font-bold text-sm text-[#02312A]">
-                        {task.merchantName ||
-                          task.consumerName ||
-                          "Walk-in Client"}
+                        {task?.senderInfo?.name || "Walk-in Client"}
                       </p>
-                      {/* কল করার কুইক ইউটিলিটি ছোট করে নামের নিচে দিয়ে দেওয়া হলো */}
+
                       <a
                         href={`tel:${task.merchantPhone || task.consumerPhone}`}
                         className="text-[10px] text-gray-400 font-bold hover:text-[#02312A] transition-all flex items-center gap-1 mt-0.5"
@@ -130,15 +125,13 @@ const RiderReturnReq = () => {
                     />
                     <div className="space-y-0.5">
                       <p className="text-xs text-gray-600 font-medium leading-tight line-clamp-2">
-                        {task.pickupLocation ||
-                          task.deliveryLocation ||
-                          "Hub Office"}
+                        {task?.senderInfo?.area || "Hub Office"}
                       </p>
-                      {/* ম্যাপ দেখার বাটনটি সরাসরি লোকেশনের নিচে টেক্সট আকারে ইন্টিগ্রেট করা হলো */}
+
                       <button
                         onClick={() =>
                           setSelectedMapLocation(
-                            task.pickupLocation || task.deliveryLocation
+                            task.pickupLocation || task.deliveryLocation,
                           )
                         }
                         className="text-[10px] text-gray-400 font-bold hover:text-[#02312A] transition-all flex items-center gap-1"
@@ -157,7 +150,11 @@ const RiderReturnReq = () => {
 
                 <td className="px-6 py-4 rounded-r-xl text-center">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 text-amber-700 border border-amber-200/60 rounded-md text-[11px] font-black tracking-wide uppercase">
-                    <RiTimeLine size={12} className="animate-spin text-amber-600" style={{ animationDuration: '3s' }} />
+                    <RiTimeLine
+                      size={12}
+                      className="animate-spin text-amber-600"
+                      style={{ animationDuration: "3s" }}
+                    />
                     Pending Hub Receive
                   </div>
                 </td>
@@ -175,7 +172,8 @@ const RiderReturnReq = () => {
               Return ledger is completely empty
             </h3>
             <p className="text-gray-400 text-xs font-bold max-w-[320px] mx-auto mt-1.5 leading-relaxed">
-              No pending return tasks. All return shipments have been successfully handed over and cleared by the hub manager.
+              No pending return tasks. All return shipments have been
+              successfully handed over and cleared by the hub manager.
             </p>
           </div>
         )}
@@ -217,7 +215,7 @@ const RiderReturnReq = () => {
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
               src={`https://maps.google.com/maps?q=${encodeURIComponent(
-                selectedMapLocation + ", Dhaka, Bangladesh"
+                selectedMapLocation + ", Dhaka, Bangladesh",
               )}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
             ></iframe>
           </div>
@@ -228,7 +226,7 @@ const RiderReturnReq = () => {
             </div>
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                selectedMapLocation + ", Dhaka, Bangladesh"
+                selectedMapLocation + ", Dhaka, Bangladesh",
               )}`}
               target="_blank"
               rel="noreferrer"
