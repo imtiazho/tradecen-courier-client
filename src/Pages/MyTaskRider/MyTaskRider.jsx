@@ -39,7 +39,7 @@ const MyTaskRider = () => {
       return res.data[0];
     },
   });
-  console.log(riderData);
+  
   const handlePickedUp = async (parcelId, trackingID) => {
     try {
       const res = await axiosSecure.patch("/riders/complete-pickup/update", {
@@ -99,6 +99,23 @@ const MyTaskRider = () => {
   const handleDelivered = async (parcelId, trackingID) => {
     try {
       const res = await axiosSecure.patch("/riders/complete-delivered/update", {
+        riderId: riderData._id,
+        parcelId,
+        trackingID,
+      });
+
+      if (res.data.success) {
+        Swal.fire("Success", "Parcel Delivered and status updated!", "success");
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire("Error", "Something went wrong!", "error");
+    }
+  };
+
+  const handleReturnDelivered = async (parcelId, trackingID) => {
+    try {
+      const res = await axiosSecure.patch("/riders/complete-return-delivered/update", {
         riderId: riderData._id,
         parcelId,
         trackingID,
@@ -186,8 +203,17 @@ const MyTaskRider = () => {
   const deliveryTasks = activeTasks.filter(
     (task) => task.taskType === "delivery",
   );
+  const returnDeliveryTasks = activeTasks.filter(
+    (task) => task.taskType === "return-delivery",
+  );
 
-  const currentTabTasks = activeTab === "pickup" ? pickupTasks : deliveryTasks;
+  // const currentTabTasks = activeTab === "pickup" ? pickupTasks : deliveryTasks;
+  const currentTabTasks =
+    activeTab === "pickup"
+      ? pickupTasks
+      : activeTab === "delivery"
+        ? deliveryTasks
+        : returnDeliveryTasks;
 
   return (
     <div className="py-8 px-6 md:px-12 bg-[#ffffff] rounded-tradecen shadow-flat min-h-screen font-sans">
@@ -222,6 +248,16 @@ const MyTaskRider = () => {
             }`}
           >
             Deliveries ({deliveryTasks.length})
+          </button>
+          <button
+            onClick={() => setActiveTab("return-delivery")}
+            className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg text-xs font-black tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+              activeTab === "return-delivery"
+                ? "bg-[#CAEB66] text-[#02312A] shadow-sm"
+                : "text-gray-500 hover:text-gray-800"
+            }`}
+          >
+            Return Deliveries ({returnDeliveryTasks.length})
           </button>
         </div>
       </div>
@@ -355,20 +391,22 @@ const MyTaskRider = () => {
 
                     <div className="grid grid-cols-2 gap-2">
                       {/* Action Button: Picked / Delivered */}
-                      <button
-                        onClick={() =>
-                          activeTab === "pickup"
-                            ? handlePickedUp(task.parcelId, task.trackingID)
-                            : handleDelivered(task.parcelId, task.trackingID)
-                        }
-                        className="bg-primary text-secondary text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
-                      >
-                        <FaCheckCircle size={11} />
-                        {activeTab === "pickup" ? "Pick" : "Mark Deliver"}
-                      </button>
+                      {activeTab !== "return-delivery" && (
+                        <button
+                          onClick={() =>
+                            activeTab === "pickup"
+                              ? handlePickedUp(task.parcelId, task.trackingID)
+                              : handleDelivered(task.parcelId, task.trackingID)
+                          }
+                          className="bg-primary text-secondary text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
+                        >
+                          <FaCheckCircle size={11} />
+                          {activeTab === "pickup" ? "Pick" : "Mark Deliver"}
+                        </button>
+                      )}
 
                       {/* Return Request Button */}
-                      {activeTab !== "pickup" && (
+                      {activeTab === "delivery" && (
                         <button
                           onClick={() =>
                             handleReturnReq(task.parcelId, task.trackingID)
@@ -377,6 +415,24 @@ const MyTaskRider = () => {
                         >
                           <RiArrowGoBackLine size={11} />
                           To Return
+                        </button>
+                      )}
+
+                      {activeTab === "return-delivery" && (
+                        <button
+                          onClick={() =>
+                            handleReturnDelivered(
+                              task.parcelId,
+                              task.trackingID,
+                            )
+                          }
+                          className="inline-flex items-center justify-center gap-1.5 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-600 border border-emerald-200 text-[11px] font-bold py-2 px-3 rounded-lg transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap tracking-wide col-span-2"
+                        >
+                          <RiArrowGoBackLine
+                            size={11}
+                            className="shrink-0 transform rotate-180"
+                          />
+                          <span>Handover to Merchant</span>
                         </button>
                       )}
                     </div>

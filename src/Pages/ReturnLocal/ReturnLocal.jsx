@@ -92,7 +92,7 @@ const ReturnLocal = () => {
       };
       
       const res = await axiosSecure.patch(
-        "/parcels/assign-return-delivery", //
+        "/parcels/assign-return-delivery", 
         assignmentData,
       );
 
