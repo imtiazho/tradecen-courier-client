@@ -28,6 +28,7 @@ import {
   RiTimeLine,
   RiListCheck2,
   RiSettings3Line,
+  RiArrowGoBackLine,
 } from "react-icons/ri";
 import { TbUserQuestion } from "react-icons/tb";
 import { IoBagCheckOutline } from "react-icons/io5";
@@ -58,10 +59,10 @@ const RiderState = () => {
         ? res.data[0]
         : res.data;
     },
-    
+
     enabled: !!user && !!user?.accessToken,
   });
-
+  console.log(riderAllData);
   const handlePickedUp = async (parcelId, trackingID) => {
     try {
       const res = await axiosSecure.patch("/riders/complete-pickup/update", {
@@ -86,6 +87,26 @@ const RiderState = () => {
         parcelId,
         trackingID,
       });
+
+      if (res.data.success) {
+        Swal.fire("Success", "Parcel Delivered and status updated!", "success");
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire("Error", "Something went wrong!", "error");
+    }
+  };
+
+  const handleReturnDelivered = async (parcelId, trackingID) => {
+    try {
+      const res = await axiosSecure.patch(
+        "/riders/complete-return-delivered/update",
+        {
+          riderId: riderAllData?.riderData._id,
+          parcelId,
+          trackingID,
+        },
+      );
 
       if (res.data.success) {
         Swal.fire("Success", "Parcel Delivered and status updated!", "success");
@@ -395,10 +416,14 @@ const RiderState = () => {
                     className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-bl-xl rounded-tr-sm absolute top-0 right-0 ${
                       parcel.taskType === "delivery"
                         ? "bg-[#02312A]/10 text-[#02312A]"
-                        : "bg-purple-500/10 text-purple-700"
+                        : parcel.taskType === "return-delivery"
+                          ? "bg-rose-500/10 text-rose-600"
+                          : "bg-purple-500/10 text-purple-700"
                     }`}
                   >
-                    {parcel.taskType}
+                    {parcel.taskType === "return-delivery"
+                      ? "Return"
+                      : parcel.taskType}
                   </span>
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     {/* Package Info */}
@@ -449,39 +474,40 @@ const RiderState = () => {
                       </button>
 
                       <div className="flex items-center gap-1.5 pl-1">
-                        {parcel.taskType === "delivery" &&
-                          (parcel.isHold ? (
-                            <span
-                              className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 text-xs font-bold px-3 py-2 rounded-md transition-all cursor-pointer"
-                              title="Put on Hold"
-                            >
-                              Holded Up
-                            </span>
-                          ) : (
-                            <button
-                              onClick={() => handleHoldUp(parcel.parcelId)}
-                              className="bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 text-xs font-bold px-3 py-2 rounded-md transition-all cursor-pointer"
-                              title="Put on Hold"
-                            >
-                              Hold
-                            </button>
-                          ))}
-
                         {parcel.taskType === "delivery" ? (
                           <button
                             onClick={() =>
-                              handleDelivered(parcel.parcelId, parcel.trackingID)
+                              handleDelivered(
+                                parcel.parcelId,
+                                parcel.trackingID,
+                              )
                             }
-                            className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer"
+                            className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
                           >
                             Delivered
+                          </button>
+                        ) : parcel.taskType === "return-delivery" ? (
+                          <button
+                            onClick={() =>
+                              handleReturnDelivered(
+                                parcel.parcelId,
+                                parcel.trackingID,
+                              )
+                            }
+                            className="inline-flex items-center justify-center gap-1.5 bg-emerald-50 hover:bg-emerald-100/80 text-emerald-600 border border-emerald-200 text-[11px] font-bold py-2 px-3 rounded-lg transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap tracking-wide"
+                          >
+                            <RiArrowGoBackLine
+                              size={11}
+                              className="shrink-0 transform rotate-180"
+                            />
+                            <span>Handover to Merchant</span>
                           </button>
                         ) : (
                           <button
                             onClick={() =>
                               handlePickedUp(parcel.parcelId, parcel.trackingID)
                             }
-                            className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer"
+                            className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
                           >
                             Picked
                           </button>

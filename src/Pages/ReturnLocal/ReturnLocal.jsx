@@ -45,7 +45,7 @@ const ReturnLocal = () => {
     },
     enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
-  
+
   console.log(returnWarehouse);
   const { data: riders = [], refetch: refetchRiders } = useQuery({
     queryKey: ["hubRiders", managerData?.hubName],
@@ -90,9 +90,9 @@ const ReturnLocal = () => {
         riderPhone: rider.phone,
         trackingID: selectedParcel.trackingID,
       };
-      
+
       const res = await axiosSecure.patch(
-        "/parcels/assign-return-delivery", 
+        "/parcels/assign-return-delivery",
         assignmentData,
       );
 
@@ -135,92 +135,97 @@ const ReturnLocal = () => {
           </tr>
         </thead>
         <tbody>
-  {(returnWarehouse.returnList || []).map((parcel) => (
-    <tr
-      key={parcel._id}
-      className="bg-[#FFFFFF] hover:bg-[#FDFDFD] transition-all group border-b border-[#F8F9FA]"
-    >
-      {/* ১. Parcel Tracking & Info */}
-      <td className="pl-6 pr-4 py-5 align-middle w-[25%]">
-        <div className="flex flex-col items-start gap-1">
-          <span className="text-[9px] font-bold text-rose-500 bg-rose-50/60 border border-rose-100/70 px-2 py-0.5 rounded font-mono tracking-wide uppercase">
-            #{parcel.trackingID}
-          </span>
-          <span className="text-[13px] font-semibold text-[#0F172A] flex items-center gap-2 tracking-tight mt-0.5">
-            <FaBoxOpen className="text-[#94A3B8]" size={13} />{" "}
-            {parcel.parcelName || "Package Item"}
-          </span>
-        </div>
-      </td>
+          {(returnWarehouse.returnList || []).map((parcel) => (
+            <tr
+              key={parcel._id}
+              className="bg-[#FFFFFF] hover:bg-[#FDFDFD] transition-all group border-b border-[#F8F9FA]"
+            >
+              {/* ১. Parcel Tracking & Info */}
+              <td className="pl-6 pr-4 py-5 align-middle w-[25%]">
+                <div className="flex flex-col items-start gap-1">
+                  <span className="text-[9px] font-bold text-rose-500 bg-rose-50/60 border border-rose-100/70 px-2 py-0.5 rounded font-mono tracking-wide uppercase">
+                    #{parcel.trackingID}
+                  </span>
+                  <span className="text-[13px] font-semibold text-[#0F172A] flex items-center gap-2 tracking-tight mt-0.5">
+                    <FaBoxOpen className="text-[#94A3B8]" size={13} />{" "}
+                    {parcel.parcelName || "Package Item"}
+                  </span>
+                </div>
+              </td>
 
-      {/* ২. Merchant / Sender Details */}
-      <td className="px-4 py-5 align-middle w-[35%]">
-        <div className="flex flex-col gap-0.5">
-          <div className="flex items-center gap-1.5 font-bold text-[13px] text-[#0F172A]">
-            <FaUserTie className="text-[#94A3B8] shrink-0" size={12} />
-            <span>{parcel.senderInfo?.name}</span>
-          </div>
-          <div
-            className="flex items-center gap-1.5 text-gray-400 group/phone cursor-pointer w-fit mt-0.5"
-            onClick={() => handleCopy(parcel.senderInfo?.phone)}
-          >
-            <FaPhoneAlt size={9} className="text-[#94A3B8]" />
-            <span className="text-[11px] font-medium text-[#64748B] hover:text-[#0F172A] transition-colors">
-              {parcel.senderInfo?.phone}
-            </span>
-            <FaCopy
-              size={8}
-              className="opacity-0 group-hover/phone:opacity-100 text-[#94A3B8] transition-opacity ml-0.5"
-            />
-          </div>
-          <span className="text-[9px] uppercase font-bold text-[#94A3B8] tracking-widest flex items-center gap-1 mt-1">
-            <FaMapMarkerAlt size={10} className="text-rose-400" /> 
-            Origin: <span className="text-[#64748B] font-medium">{parcel.senderInfo?.area || "N/A"}</span>
-          </span>
-        </div>
-      </td>
+              {/* ২. Merchant / Sender Details */}
+              <td className="px-4 py-5 align-middle w-[35%]">
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex items-center gap-1.5 font-bold text-[13px] text-[#0F172A]">
+                    <FaUserTie className="text-[#94A3B8] shrink-0" size={12} />
+                    <span>{parcel.senderInfo?.name}</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-1.5 text-gray-400 group/phone cursor-pointer w-fit mt-0.5"
+                    onClick={() => handleCopy(parcel.senderInfo?.phone)}
+                  >
+                    <FaPhoneAlt size={9} className="text-[#94A3B8]" />
+                    <span className="text-[11px] font-medium text-[#64748B] hover:text-[#0F172A] transition-colors">
+                      {parcel.senderInfo?.phone}
+                    </span>
+                    <FaCopy
+                      size={8}
+                      className="opacity-0 group-hover/phone:opacity-100 text-[#94A3B8] transition-opacity ml-0.5"
+                    />
+                  </div>
+                  <span className="text-[9px] uppercase font-bold text-[#94A3B8] tracking-widest flex items-center gap-1 mt-1">
+                    <FaMapMarkerAlt size={10} className="text-rose-400" />
+                    Origin:{" "}
+                    <span className="text-[#64748B] font-medium">
+                      {parcel.senderInfo?.area || "N/A"}
+                    </span>
+                  </span>
+                </div>
+              </td>
 
-      {/* ৩. Specs (Weight & Type) */}
-      <td className="px-4 py-5 align-middle w-[20%]">
-        <div className="flex flex-col items-start gap-1">
-          <div className="flex items-center gap-1.5">
-            <span className="text-[13px] font-bold text-[#0F172A]">
-              {parcel.parcelWeight}{" "}
-              <span className="text-[9px] text-[#94A3B8] font-semibold">KG</span>
-            </span>
-            <span className="text-[9px] font-medium bg-[#FFF5F5] border border-[#FFE3E3] text-rose-500 px-1.5 py-0.2 rounded uppercase tracking-wider">
-              Return
-            </span>
-          </div>
-          <p className="text-[10px] font-medium text-[#94A3B8] uppercase tracking-wider">
-            Type:{" "}
-            <span className="text-[#475569] font-semibold">
-              {parcel.parcelType}
-            </span>
-          </p>
-        </div>
-      </td>
+              {/* ৩. Specs (Weight & Type) */}
+              <td className="px-4 py-5 align-middle w-[20%]">
+                <div className="flex flex-col items-start gap-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[13px] font-bold text-[#0F172A]">
+                      {parcel.parcelWeight}{" "}
+                      <span className="text-[9px] text-[#94A3B8] font-semibold">
+                        KG
+                      </span>
+                    </span>
+                    <span className="text-[9px] font-medium bg-[#FFF5F5] border border-[#FFE3E3] text-rose-500 px-1.5 py-0.2 rounded uppercase tracking-wider">
+                      Return
+                    </span>
+                  </div>
+                  <p className="text-[10px] font-medium text-[#94A3B8] uppercase tracking-wider">
+                    Type:{" "}
+                    <span className="text-[#475569] font-semibold">
+                      {parcel.parcelType}
+                    </span>
+                  </p>
+                </div>
+              </td>
 
-      {/* ৪. Classic Operation Button */}
-      <td className="pr-6 pl-4 py-5 align-middle text-right w-[20%]">
-        <div className="flex justify-end items-center w-full">
-          <button
-            onClick={() => {
-              setSelectedParcel(parcel);
-              document
-                .getElementById("merchant_return_modal")
-                .showModal();
-            }}
-            className="inline-flex items-center justify-center gap-2 bg-[#FF2E63] hover:bg-[#E01E4F] text-white px-4 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-widest whitespace-nowrap shadow-sm active:scale-[0.98] cursor-pointer transition-all"
-          >
-            <FaUndoAlt size={9} className="shrink-0" />
-            <span>Assign Rider</span>
-          </button>
-        </div>
-      </td>
-    </tr>
-  ))}
-</tbody>
+              {/* ৪. Classic Operation Button */}
+              <td className="pr-6 pl-4 py-5 align-middle text-right w-[20%]">
+                <div className="flex justify-end items-center w-full">
+                  <button
+                    onClick={() => {
+                      setSelectedParcel(parcel);
+                      document
+                        .getElementById("merchant_return_modal")
+                        .showModal();
+                    }}
+                    className="inline-flex items-center justify-center gap-2 bg-[#FF2E63] hover:bg-[#E01E4F] text-white px-4 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-widest whitespace-nowrap shadow-sm active:scale-[0.98] cursor-pointer transition-all"
+                  >
+                    <FaUndoAlt size={9} className="shrink-0" />
+                    <span>Assign Rider</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
 
       {/* Empty State */}
@@ -310,7 +315,10 @@ const ReturnLocal = () => {
                         </div>
                       </div>
                       <button
-                        onClick={() => handleAssignReturnDelivery(rider)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAssignReturnDelivery(rider);
+                        }}
                         className="bg-rose-500 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-rose-600 transition-all active:scale-95 cursor-pointer border border-rose-500"
                       >
                         Select

@@ -207,7 +207,6 @@ const MyTaskRider = () => {
     (task) => task.taskType === "return-delivery",
   );
 
-  // const currentTabTasks = activeTab === "pickup" ? pickupTasks : deliveryTasks;
   const currentTabTasks =
     activeTab === "pickup"
       ? pickupTasks
