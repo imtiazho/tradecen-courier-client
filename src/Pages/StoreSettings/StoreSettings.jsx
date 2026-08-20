@@ -21,6 +21,7 @@ const StoreSettings = () => {
   const {
     data: merchantData,
     isLoading,
+    isFetching,
     refetch,
   } = useQuery({
     queryKey: ["merchant-settings", user?.email],
@@ -28,8 +29,11 @@ const StoreSettings = () => {
       const res = await axiosSecure.get(`/merchant/${user?.email}`);
       return res.data;
     },
-
     enabled: !!user && !!user?.accessToken,
+
+    // Set stateTime
+    staleTime: 1000 * 60 * 5,
+    placeholderData: (previousData) => previousData,
   });
 
   const handleUpdate = async (e) => {

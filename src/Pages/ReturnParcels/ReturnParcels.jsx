@@ -23,7 +23,6 @@ const ReturnParcels = () => {
   });
 
   const returnReqs = managerData?.returnReq || [];
-  
   const pendingReceiveTasks = returnReqs.filter(parcel => !parcel.isHubReceived);
   const dispatchTasks = returnReqs.filter(parcel => parcel.isHubReceived); 
 
@@ -157,8 +156,8 @@ const ReturnParcels = () => {
                   <td className="px-6 py-5 text-xs text-[#02312A]">
                     <div className="flex flex-col items-start">
                       <span className="font-black text-sm text-[#02312A]">
-                        {parcel.parcelName?.length > 18
-                          ? parcel.parcelName.slice(0, 18) + "..."
+                        {parcel.parcelName?.length > 10
+                          ? parcel.parcelName.slice(0, 10) + "..."
                           : parcel.parcelName || "Standard Parcel"}
                       </span>
                       <span className="text-[#02312A] font-black bg-[#CAEB66]/10 border border-[#CAEB66]/20 px-1.5 py-0.5 rounded-md text-[9px] w-fit mt-1">

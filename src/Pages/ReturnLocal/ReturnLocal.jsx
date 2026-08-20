@@ -46,7 +46,6 @@ const ReturnLocal = () => {
     enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
 
-  console.log(returnWarehouse);
   const { data: riders = [], refetch: refetchRiders } = useQuery({
     queryKey: ["hubRiders", managerData?.hubName],
     queryFn: async () => {

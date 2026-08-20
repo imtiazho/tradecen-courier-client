@@ -102,15 +102,21 @@ const Coverage = () => {
                   position={[center.latitude, center.longitude]}
                 >
                   <Popup>
-                    <div className="font-sans">
-                      <h4 className="font-bold text-[#02312A]">
+                    <div className="font-sans max-w-[200px]">
+                      {" "}
+                      {/* Optional: set a reasonable max-width if needed */}
+                      <h4 className="font-bold text-[#02312A] mb-1">
                         {center.district}
                       </h4>
-                      <div className="flex items-center gap-1">
-                        {center.covered_area.map((item) => (
-                          <p className="text-xs text-gray-500 uppercase">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        {center.covered_area.map((item, index) => (
+                          <span
+                            key={index}
+                            className="text-xs text-gray-500 uppercase"
+                          >
                             {item}
-                          </p>
+                            {index < center.covered_area.length - 1 && ","}
+                          </span>
                         ))}
                       </div>
                     </div>

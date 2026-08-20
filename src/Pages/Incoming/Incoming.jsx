@@ -229,7 +229,7 @@ const Incoming = () => {
                           : "In Transit"}
                     </span>
                   </td>
-
+                          
                   <td className="px-6 py-5 rounded-r-[16px] pr-6">
                     <div className="flex justify-end pr-6 w-full">
                       {parcel.isReturnRequested === true ? (

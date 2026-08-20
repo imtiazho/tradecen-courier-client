@@ -31,17 +31,17 @@ const PickUp = () => {
     data: pickUpsData = [],
     refetch: refetchPickups,
   } = useQuery({
-    queryKey: ["pickUpsData", managerData?.hubName], 
+    queryKey: ["pickUpsData", managerData?.hubName],
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/parcels/pickups/${managerData.hubName}`,
       );
       return Array.isArray(res.data) ? res.data : [];
     },
-    
+
     enabled: !!managerData?.hubName && !!user && !!user?.accessToken,
   });
-
+  
   // Action Handle: When Rider brings parcel to hub
   const handleConfirmPickupReceived = async (id) => {
     try {
@@ -63,7 +63,7 @@ const PickUp = () => {
   if (managerLoading || pickUpsLoading) {
     return <LoadingModal isLoading={true} />;
   }
-  
+
   return (
     <div className="p-4 md:p-8 bg-[#ffffff] rounded-tradecen min-h-screen font-sans">
       <DynamicTitle title="Dashboard | Pickups" />

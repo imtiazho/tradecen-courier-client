@@ -3,7 +3,13 @@
     "region": "Dhaka",
     "district": "Dhaka",
     "city": "Dhaka",
-    "covered_area": ["Uttara", "Dhanmondi", "Mirpur", "Mohammadpur"],
+    "covered_area": [
+      "Uttara",
+      "Dhanmondi",
+      "Mirpur",
+      "Mohammadpur",
+      "Khilgaon"
+    ],
     "status": "active",
     "longitude": 90.4125,
     "latitude": 23.8103
@@ -163,7 +169,7 @@
     "region": "Chattogram",
     "district": "Chandpur",
     "city": "Chandpur",
-    "covered_area": ["Haimchar", "Matlab", "Shahrasti"],
+    "covered_area": ["Haimchar", "Matlab", "Shahrasti", "Matlab Uttar"],
     "status": "active",
     "longitude": 90.85,
     "latitude": 23.2333

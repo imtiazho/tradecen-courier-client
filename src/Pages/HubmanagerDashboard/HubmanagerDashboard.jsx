@@ -38,7 +38,7 @@ const HubmanagerDashboard = () => {
     },
     enabled: !!user && !!user?.accessToken,
   });
-  console.log(managerData.returnReq);
+  
   const { isLoading: incomingLoading, data: incomingData = [] } = useQuery({
     queryKey: ["inComingData", managerData?.hubName],
     queryFn: async () => {

@@ -62,7 +62,7 @@ const RiderState = () => {
 
     enabled: !!user && !!user?.accessToken,
   });
-  console.log(riderAllData);
+
   const handlePickedUp = async (parcelId, trackingID) => {
     try {
       const res = await axiosSecure.patch("/riders/complete-pickup/update", {
@@ -94,6 +94,45 @@ const RiderState = () => {
       }
     } catch (error) {
       Swal.fire("Error", "Something went wrong!", "error");
+    }
+  };
+
+  const handleReturnReq = async (parcelId, trackingID) => {
+    const confirmResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to request a return for this parcel to the hub?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#02312A",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Request Return",
+    });
+
+    if (!confirmResult.isConfirmed) return;
+
+    try {
+      const res = await axiosSecure.patch("/riders/return-req/update", {
+        riderId: riderAllData?.riderData?._id,
+        parcelId,
+        trackingID,
+      });
+
+      if (res.data.success) {
+        Swal.fire({
+          title: "Return Requested",
+          text: "Return request submitted! Please hand over the parcel to the hub manager.",
+          icon: "success",
+          confirmButtonColor: "#02312A",
+        });
+        refetch();
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Request Failed",
+        text: "Something went wrong while processing the return request!",
+        icon: "error",
+        confirmButtonColor: "#02312A",
+      });
     }
   };
 
@@ -410,7 +449,7 @@ const RiderState = () => {
               riderAllData?.assignedParcels?.slice(0, 5).map((parcel) => (
                 <div
                   key={parcel.parcelId}
-                  className={`m-6 p-5 transition-all bg-[#FFFFFF] hover:bg-[#F8F9FA]/60 rounded-2xl relative border border-gray-100`}
+                  className={`m-6 px-5 pt-8 pb-5 transition-all bg-[#FFFFFF] hover:bg-[#F8F9FA]/60 rounded-2xl relative border border-gray-100`}
                 >
                   <span
                     className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-bl-xl rounded-tr-sm absolute top-0 right-0 ${
@@ -473,19 +512,48 @@ const RiderState = () => {
                         <RiMap2Line size={15} />
                       </button>
 
-                      <div className="flex items-center gap-1.5 pl-1">
+                      <div className="flex items-center gap-1.5 pl-1 w-full justify-start">
                         {parcel.taskType === "delivery" ? (
-                          <button
-                            onClick={() =>
-                              handleDelivered(
-                                parcel.parcelId,
-                                parcel.trackingID,
-                              )
-                            }
-                            className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
-                          >
-                            Delivered
-                          </button>
+                          <div className="flex flex-col gap-1.5">
+                            <div className="flex items-center gap-1.5 w-full">
+                              <button
+                                onClick={() =>
+                                  handleDelivered(
+                                    parcel.parcelId,
+                                    parcel.trackingID,
+                                  )
+                                }
+                                className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
+                              >
+                                Delivered
+                              </button>
+                              {parcel.isHold ? (
+                                <span className="text-center bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-bold py-2 px-3.5 rounded-md whitespace-nowrap">
+                                  On Hold
+                                </span>
+                              ) : (
+                                <button
+                                  onClick={() => handleHoldUp(parcel.parcelId)}
+                                  className="text-center bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 border border-amber-500/20 text-[11px] font-bold py-2 px-4 rounded-md transition-all cursor-pointer whitespace-nowrap"
+                                >
+                                  Hold
+                                </button>
+                              )}
+                            </div>
+
+                            <button
+                              onClick={() =>
+                                handleReturnReq(
+                                  parcel.parcelId,
+                                  parcel.trackingID,
+                                )
+                              }
+                              className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 col-span-1 w-full"
+                            >
+                              <RiArrowGoBackLine size={11} />
+                              To Return
+                            </button>
+                          </div>
                         ) : parcel.taskType === "return-delivery" ? (
                           <button
                             onClick={() =>

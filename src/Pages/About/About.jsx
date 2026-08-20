@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DynamicTitle from "../../Components/DynamicTitle/DynamicTitle";
 
 const About = () => {
-  const [activeTab, setActiveTab] = useState("Story");
+  const [activeTab, setActiveTab] = useState("Our Story");
 
   const tabs = [
     {
@@ -48,7 +48,7 @@ const About = () => {
 
           {/* 3. Tab Navigation */}
           <div className="flex flex-wrap items-center gap-x-8 md:gap-x-12 gap-y-4 mb-12">
-            {tabs.map((tab) => (
+            {tabs?.map((tab) => (
               <button
                 key={tab.name}
                 onClick={() => setActiveTab(tab.name)}
@@ -71,13 +71,13 @@ const About = () => {
           <div className="space-y-8 animate-fadeIn">
             <div className="transition-opacity duration-500">
               <p className="text-[#5F7180] text-[15px] md:text-[17px] leading-[1.8] mb-6">
-                {tabs.find((t) => t.name === activeTab).content}
+                {tabs?.find((t) => t.name === activeTab)?.content}
               </p>
               <p className="text-[#5F7180] text-[15px] md:text-[17px] leading-[1.8] mb-6">
-                {tabs.find((t) => t.name === activeTab).content}
+                {tabs?.find((t) => t.name === activeTab)?.content}
               </p>
               <p className="text-[#5F7180] text-[15px] md:text-[17px] leading-[1.8]">
-                {tabs.find((t) => t.name === activeTab).content}
+                {tabs?.find((t) => t.name === activeTab)?.content}
               </p>
             </div>
           </div>
