@@ -8,15 +8,17 @@ import SatisfactionBanner from "../../Components/SatisfactionBanner/Satisfaction
 import ClientReviews from "../../Components/ClientReviews/ClientReviews";
 import FAQSection from "../../Components/FAQSection/FAQSection";
 import DynamicTitle from "../../Components/DynamicTitle/DynamicTitle";
+import { LogisticsPulseSection } from "../../Components/LogisticsPulse/LogisticsPulseSection";
 
 const HomePage = () => {
-  
+
   return (
     <div>
       <DynamicTitle title="Logistics & Courier Service" />
       <HeroSection></HeroSection>
       <HowItWorks></HowItWorks>
       <OurServices></OurServices>
+      <LogisticsPulseSection></LogisticsPulseSection>
       <PartnerMarquee></PartnerMarquee>
       <ServicesFeatureList></ServicesFeatureList>
       <SatisfactionBanner></SatisfactionBanner>
