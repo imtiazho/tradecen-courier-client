@@ -7,7 +7,7 @@ const SatisfactionBanner = () => {
   return (
     <section className="py-16 md:py-20 px-4 md:px-10 lg:px-20 font-sans">
       <div className="max-w-7xl mx-auto">
-        <div className="relative bg-[#03373D] rounded-[48px] p-16 overflow-hidden shadow-xl">
+        <div className="relative bg-secondary rounded-[48px] p-16 overflow-hidden shadow-xl">
           <div className="absolute top-0 right-0 w-full h-auto opacity-70">
             <img
               src={WaveHeaderImg}

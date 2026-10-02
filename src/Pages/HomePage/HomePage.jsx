@@ -18,11 +18,11 @@ const HomePage = () => {
       <HeroSection></HeroSection>
       <HowItWorks></HowItWorks>
       <OurServices></OurServices>
-      <LogisticsPulseSection></LogisticsPulseSection>
       <PartnerMarquee></PartnerMarquee>
       <ServicesFeatureList></ServicesFeatureList>
       <SatisfactionBanner></SatisfactionBanner>
       <ClientReviews></ClientReviews>
+      <LogisticsPulseSection></LogisticsPulseSection>
       <FAQSection></FAQSection>
     </div>
   );
