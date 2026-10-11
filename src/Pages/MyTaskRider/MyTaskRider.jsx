@@ -397,7 +397,7 @@ const MyTaskRider = () => {
                               ? handlePickedUp(task.parcelId, task.trackingID)
                               : handleDelivered(task.parcelId, task.trackingID)
                           }
-                          className="bg-primary text-secondary text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
+                          className="bg-[#CAEB66] text-secondary text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
                         >
                           <FaCheckCircle size={11} />
                           {activeTab === "pickup" ? "Pick" : "Mark Deliver"}

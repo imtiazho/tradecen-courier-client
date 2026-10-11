@@ -210,7 +210,7 @@ const DashboardLayout = () => {
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
       isActive
-        ? "bg-primary text-secondary font-bold shadow-sm"
+        ? "bg-[#CAEB66] text-secondary font-bold shadow-sm"
         : "text-[#5F7180] hover:bg-gray-100"
     }`;
 
@@ -267,7 +267,7 @@ const DashboardLayout = () => {
                   {({ isActive }) => (
                     <>
                       {isActive && (
-                        <span className="absolute left-0 w-1.5 h-6 bg-secondary rounded-r-full" />
+                        <span className="absolute left-0 w-1.5 h-6 bg-[#02312A] rounded-r-full" />
                       )}
 
                       <span

@@ -30,7 +30,7 @@ const AccountAndFinance = () => {
       <div className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-black text-secondary mb-2 flex items-center gap-3">
-            <div className="p-3 bg-primary text-secondary rounded-xl shadow-md">
+            <div className="p-3 bg-[#CAEB66] text-secondary rounded-xl shadow-md">
               <FaWallet size={20} />
             </div>
             Account & Finance Hub
@@ -41,8 +41,8 @@ const AccountAndFinance = () => {
           </p>
         </div>
 
-        <div className="bg-primary text-secondary px-5 py-3 rounded-2xl flex items-center gap-3 border border-white/10 w-fit">
-          <span className="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+        <div className="bg-[#CAEB66] text-secondary px-5 py-3 rounded-2xl flex items-center gap-3 border border-white/10 w-fit">
+          <span className="w-2 h-2 bg-[#02312A] rounded-full animate-pulse"></span>
           <p className="text-[11px] font-black uppercase tracking-wider text-secondary">
             Hub Terminal: <span className="text-secondary">Active</span>
           </p>

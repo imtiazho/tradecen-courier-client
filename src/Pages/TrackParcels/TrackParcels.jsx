@@ -57,7 +57,7 @@ const TrackParcels = () => {
           />
           <button
             onClick={handleSearch}
-            className="absolute right-1 top-1 bg-primary text-secondary font-bold px-6 py-2.5 rounded-full hover:bg-[#bad85d] transition-all active:scale-95 cursor-pointer"
+            className="absolute right-1 top-1 bg-[#CAEB66] text-secondary font-bold px-6 py-2.5 rounded-full hover:bg-[#bad85d] transition-all active:scale-95 cursor-pointer"
           >
             {loading ? "Searching..." : "Track"}
           </button>
@@ -68,7 +68,7 @@ const TrackParcels = () => {
             <div className="bg-[#F3F7F9] p-8 rounded-[25px] border border-gray-100">
               <h2 className="text-2xl font-black text-[#02312A] mb-6 flex items-center gap-3">
                 <FaBoxOpen
-                  className="text-[#CAEB66] bg-secondary p-2 rounded-lg"
+                  className="text-[#CAEB66] bg-[#02312A] p-2 rounded-lg"
                   size={35}
                 />{" "}
                 Product Details

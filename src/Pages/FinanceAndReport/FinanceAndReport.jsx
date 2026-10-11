@@ -103,7 +103,7 @@ const FinanceAndReport = () => {
             HQ Central Finance Ledger
           </h2>
           <p className="text-sm text-gray-500 mt-1 font-medium">
-             <span className="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></span>
+             <span className="w-2.5 h-2.5 bg-[#CAEB66] rounded-full animate-pulse"></span>
             Review, audit, and approve liquid cash deposit requests coming from
             various branches.
           </p>

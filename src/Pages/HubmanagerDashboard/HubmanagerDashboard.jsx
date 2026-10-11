@@ -300,7 +300,7 @@ const HubmanagerDashboard = () => {
           <button className="p-3 bg-white border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 transition-all">
             <RiNotification3Line size={20} />
           </button>
-          <button className="bg-secondary text-[#CAEB66] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all">
+          <button className="bg-[#02312A] text-[#CAEB66] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all">
             <RiQrScanLine size={18} /> Quick Scan
           </button>
         </div>
@@ -332,7 +332,7 @@ const HubmanagerDashboard = () => {
       {/* FINANCIAL VAULT HUB (Full Width Twin Cards Row) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* CARD 1: Total Hand Cash */}
-        <div className="bg-secondary p-8 rounded-tradecen text-white shadow-flat relative overflow-hidden border border-white/5 w-full">
+        <div className="bg-[#02312A] p-8 rounded-tradecen text-white shadow-flat relative overflow-hidden border border-white/5 w-full">
           <div className="relative flex flex-col h-full justify-between">
             <div>
               <div className="flex items-center justify-between">

@@ -523,7 +523,7 @@ const RiderState = () => {
                                     parcel.trackingID,
                                   )
                                 }
-                                className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
+                                className="bg-[#CAEB66] text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
                               >
                                 Delivered
                               </button>
@@ -575,7 +575,7 @@ const RiderState = () => {
                             onClick={() =>
                               handlePickedUp(parcel.parcelId, parcel.trackingID)
                             }
-                            className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
+                            className="bg-[#CAEB66] text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
                           >
                             Picked
                           </button>

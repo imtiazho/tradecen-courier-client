@@ -296,7 +296,7 @@ const PaymentPayout = () => {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity">
           <div className="bg-white w-full max-w-2xl rounded-[35px] shadow-2xl overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="bg-primary p-6 text-secondary flex justify-between items-center">
+            <div className="bg-[#CAEB66] p-6 text-secondary flex justify-between items-center">
               <h3 className="text-xl font-black flex items-center gap-2">
                 {modalConfig.type === "available" && (
                   <FaBox className="text-[#CAEB66]" />

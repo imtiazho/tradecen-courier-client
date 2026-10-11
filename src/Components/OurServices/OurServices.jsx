@@ -37,7 +37,7 @@ const servicesData = [
 const OurServices = () => {
   return (
     // This is the big dark background for the whole thing
-    <div className="bg-secondary min-h-screen py-16 px-4 md:px-10 mt-24 rounded-[25px]">
+    <div className="bg-[#02312A] min-h-screen py-16 px-4 md:px-10 mt-24 rounded-[25px]">
       <div className="max-w-7xl mx-auto">
         
         {/* Here's the title and text at the top! */}

@@ -178,7 +178,7 @@ const HoldParcelsForRider = () => {
                       onClick={() =>
                         handleDelivered(task.parcelId, task.trackingID)
                       }
-                      className="bg-primary text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer flex items-center gap-2"
+                      className="bg-[#CAEB66] text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer flex items-center gap-2"
                     >
                       <FaCheckCircle size={12} />
                       Delivered

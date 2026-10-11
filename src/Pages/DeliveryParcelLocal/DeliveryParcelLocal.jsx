@@ -271,13 +271,13 @@ const DeliveryParcelLocal = () => {
       >
         <div className="modal-box p-0 rounded-tradecen border-none shadow-tradecen overflow-hidden max-w-lg bg-white">
           {/* Modal Header */}
-          <div className="bg-primary p-6 text-center relative">
+          <div className="bg-[#CAEB66] p-6 text-center relative">
             <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-secondary hover:bg-secondary hover:text-primary">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-secondary hover:bg-[#02312A] hover:text-primary">
                 ✕
               </button>
             </form>
-            <div className="w-16 h-16 bg-secondary rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 shadow-lg transform rotate-3">
+            <div className="w-16 h-16 bg-[#02312A] rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 shadow-lg transform rotate-3">
               <MdPedalBike size={30} className="text-primary" />
             </div>
             <h3 className="font-black text-secondary text-xl uppercase tracking-tight flex items-center justify-center gap-2">
