@@ -292,7 +292,7 @@ const HubmanagerDashboard = () => {
           <span className="text-[10px] font-black uppercase tracking-[2px] text-gray-400">
             Hub Terminal {managerData?.district}
           </span>
-          <h1 className="text-3xl font-black text-secondary mt-1">
+          <h1 className="text-3xl font-black text-[#02312A] mt-1">
             {managerData?.hubName} Hub
           </h1>
         </div>
@@ -411,7 +411,7 @@ const HubmanagerDashboard = () => {
       <div className="w-full">
         <div className="bg-white p-8 rounded-tradecen border border-gray-100 shadow-flat">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="font-black text-secondary text-base tracking-wide flex items-center gap-1">
+            <h3 className="font-black text-[#02312A] text-base tracking-wide flex items-center gap-1">
               <div className="w-[6px] h-5 bg-[#CAEB66] rounded-[20px]"></div>
               Incoming Shipments
             </h3>
@@ -623,7 +623,7 @@ const HubmanagerDashboard = () => {
                     {rider?.name[0]}
                   </div>
                   <div>
-                    <p className="text-[13px] font-black text-secondary mb-1">
+                    <p className="text-[13px] font-black text-[#02312A] mb-1">
                       {" "}
                       {rider?.name}{" "}
                     </p>

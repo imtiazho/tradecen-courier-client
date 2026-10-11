@@ -475,7 +475,7 @@ const HubManager = () => {
                 {/* BTN */}
                 <button
                   type="submit"
-                  className="w-full h-14 rounded-2xl bg-[#CAEB66] text-secondary text-xs font-black uppercase tracking-[3px] mt-5 transition-all cursor-pointer"
+                  className="w-full h-14 rounded-2xl bg-[#CAEB66] text-[#02312A] text-xs font-black uppercase tracking-[3px] mt-5 transition-all cursor-pointer"
                 >
                   Create Hub
                 </button>

@@ -318,7 +318,7 @@ const SendParcel = () => {
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">
                   Service Charge
                 </p>
-                <h2 className="text-4xl font-black text-primary">
+                <h2 className="text-4xl font-black text-[#CAEB66]">
                   {deliveryCharge}{" "}
                   <span className="text-sm text-white font-normal italic">
                     BDT

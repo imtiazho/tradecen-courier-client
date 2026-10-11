@@ -36,7 +36,7 @@ const Delivered = () => {
     <div className="py-8 px-12 bg-[#ffffff] shadow-flat rounded-tradecen font-sans text-slate-700">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-secondary tracking-tight">
+          <h1 className="text-2xl font-extrabold text-[#02312A] tracking-tight">
             Delivered Parcels
           </h1>
           <p className="text-slate-500 text-sm mt-2">

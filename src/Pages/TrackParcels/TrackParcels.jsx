@@ -57,7 +57,7 @@ const TrackParcels = () => {
           />
           <button
             onClick={handleSearch}
-            className="absolute right-1 top-1 bg-[#CAEB66] text-secondary font-bold px-6 py-2.5 rounded-full hover:bg-[#bad85d] transition-all active:scale-95 cursor-pointer"
+            className="absolute right-1 top-1 bg-[#CAEB66] text-[#02312A] font-bold px-6 py-2.5 rounded-full hover:bg-[#bad85d] transition-all active:scale-95 cursor-pointer"
           >
             {loading ? "Searching..." : "Track"}
           </button>
@@ -76,10 +76,10 @@ const TrackParcels = () => {
 
               <div className="space-y-4">
                 <div className="bg-[#CAEB66] p-4 rounded-xl">
-                  <p className="text-secondary text-[10px] uppercase font-black tracking-widest mb-1">
+                  <p className="text-[#02312A] text-[10px] uppercase font-black tracking-widest mb-1">
                     Tracking ID
                   </p>
-                  <p className="text-secondary font-mono font-bold">
+                  <p className="text-[#02312A] font-mono font-bold">
                     #{parcelInfo.trackingID}
                   </p>
                 </div>

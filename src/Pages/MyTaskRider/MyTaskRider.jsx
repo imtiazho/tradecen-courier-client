@@ -219,7 +219,7 @@ const MyTaskRider = () => {
       <DynamicTitle title="Dashboard | My Task" />
       <div>
         <div className="mb-10 ">
-          <h2 className="text-3xl font-black text-secondary mb-2 flex items-center gap-3">
+          <h2 className="text-3xl font-black text-[#02312A] mb-2 flex items-center gap-3">
             Rider Terminal
           </h2>
           <p className="text-gray-500 text-sm">
@@ -397,7 +397,7 @@ const MyTaskRider = () => {
                               ? handlePickedUp(task.parcelId, task.trackingID)
                               : handleDelivered(task.parcelId, task.trackingID)
                           }
-                          className="bg-[#CAEB66] text-secondary text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
+                          className="bg-[#CAEB66] text-[#02312A] text-[11px] font-black py-2 px-2 rounded-md transition-all cursor-pointer flex items-center justify-center gap-1 shadow-sm"
                         >
                           <FaCheckCircle size={11} />
                           {activeTab === "pickup" ? "Pick" : "Mark Deliver"}

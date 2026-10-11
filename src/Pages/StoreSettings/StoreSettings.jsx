@@ -74,7 +74,7 @@ const StoreSettings = () => {
       <DynamicTitle title="Dashboard | Store Settings" />
       {/* Header Section */}
       <div className="mb-10">
-        <h2 className="text-3xl font-black text-secondary mb-2">
+        <h2 className="text-3xl font-black text-[#02312A] mb-2">
           Store Settings
         </h2>
         <p className="text-gray-500 text-sm">

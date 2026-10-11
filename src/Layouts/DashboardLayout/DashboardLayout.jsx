@@ -210,7 +210,7 @@ const DashboardLayout = () => {
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
       isActive
-        ? "bg-[#CAEB66] text-secondary font-bold shadow-sm"
+        ? "bg-[#CAEB66] text-[#02312A] font-bold shadow-sm"
         : "text-[#5F7180] hover:bg-gray-100"
     }`;
 
@@ -245,7 +245,7 @@ const DashboardLayout = () => {
         <div className="p-8 min-w-[288px]">
           <Link
             to="/"
-            className="text-2xl font-black text-secondary flex items-center gap-2"
+            className="text-2xl font-black text-[#02312A] flex items-center gap-2"
           >
             TradeCen<span className="w-2 h-2 bg-[#CAEB66] rounded-full"></span>
           </Link>

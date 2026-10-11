@@ -30,10 +30,10 @@ const ReadyToPickUp = () => {
   if (isLoading) return <LoadingModal isLoading={isLoading} />;
 
   return (
-    <div className="py-8 px-12 bg-[#ffffff] font-sans text-secondary rounded-tradecen">
+    <div className="py-8 px-12 bg-[#ffffff] font-sans text-[#02312A] rounded-tradecen">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-secondary tracking-tight">
+          <h1 className="text-2xl font-extrabold text-[#02312A] tracking-tight">
             Ready for Pickup
           </h1>
           <p className="text-slate-500 text-sm mt-2">

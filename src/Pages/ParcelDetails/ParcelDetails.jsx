@@ -21,7 +21,7 @@ const ParcelDetails = () => {
   const parcel = useLoaderData();
 
   return (
-    <div className="text-secondary">
+    <div className="text-[#02312A]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-tradecen shadow-flat mb-6">
         <div>
           <div className="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase tracking-wider mb-1">

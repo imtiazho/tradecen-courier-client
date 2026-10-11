@@ -159,7 +159,7 @@ const MerchantState = () => {
       {/* --- Header Section --- */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-black text-secondary tracking-[.6px]">
+          <h2 className="text-2xl font-black text-[#02312A] tracking-[.6px]">
             Dashboard Overview
           </h2>
           <p className="text-sm text-gray-600 mt-1">
@@ -196,7 +196,7 @@ const MerchantState = () => {
       {/* --- Overall Statistics Graph (Recharts) --- */}
       <div className="bg-white p-6 rounded-[20px] border shadow-flat  border-gray-50 w-full">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="font-black text-secondary text-base tracking-wide flex items-center gap-1">
+          <h3 className="font-black text-[#02312A] text-base tracking-wide flex items-center gap-1">
             <div className="w-[6px] h-5 bg-[#CAEB66] rounded-[20px]"></div>
             Overall Statistics
           </h3>

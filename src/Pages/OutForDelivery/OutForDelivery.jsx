@@ -65,7 +65,7 @@ const OutForDelivery = () => {
     <div className="p-4 md:p-8 bg-[#ffffff] rounded-tradecen min-h-screen font-sans">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
         <div>
-          <h2 className="text-3xl font-extrabold text-secondary tracking-wide">
+          <h2 className="text-3xl font-extrabold text-[#02312A] tracking-wide">
             Out For Delivery
           </h2>
           <p className="text-sm text-gray-500 mt-1 font-medium">

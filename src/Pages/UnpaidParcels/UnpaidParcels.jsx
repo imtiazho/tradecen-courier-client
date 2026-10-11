@@ -100,7 +100,7 @@ const UnpaidParcels = () => {
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-secondary tracking-tight">
+          <h1 className="text-2xl font-extrabold text-[#02312A] tracking-tight">
             Unpaid Invoices
           </h1>
           <p className="text-slate-500 text-sm mt-2">

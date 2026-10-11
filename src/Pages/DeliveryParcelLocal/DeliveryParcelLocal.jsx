@@ -273,19 +273,19 @@ const DeliveryParcelLocal = () => {
           {/* Modal Header */}
           <div className="bg-[#CAEB66] p-6 text-center relative">
             <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-secondary hover:bg-[#02312A] hover:text-primary">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-[#02312A] hover:bg-[#02312A] hover:text-[#CAEB66]">
                 ✕
               </button>
             </form>
             <div className="w-16 h-16 bg-[#02312A] rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 shadow-lg transform rotate-3">
-              <MdPedalBike size={30} className="text-primary" />
+              <MdPedalBike size={30} className="text-[#CAEB66]" />
             </div>
-            <h3 className="font-black text-secondary text-xl uppercase tracking-tight flex items-center justify-center gap-2">
+            <h3 className="font-black text-[#02312A] text-xl uppercase tracking-tight flex items-center justify-center gap-2">
               <FaShippingFast size={20} /> Assign Delivery Task
             </h3>
-            <p className="text-gray-300 text-xs font-bold uppercase tracking-widest mt-1 text-secondary">
+            <p className="text-gray-300 text-xs font-bold uppercase tracking-widest mt-1 text-[#02312A]">
               Target ID:{" "}
-              <span className="text-secondary">
+              <span className="text-[#02312A]">
                 #{selectedParcel?.trackingID}
               </span>
             </p>

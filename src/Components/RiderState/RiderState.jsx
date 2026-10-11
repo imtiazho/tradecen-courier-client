@@ -426,7 +426,7 @@ const RiderState = () => {
           <div className="p-6 border-b border-gray-50 flex justify-between items-center">
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-black text-secondary text-base tracking-wide flex items-center gap-2">
+                <h3 className="font-black text-[#02312A] text-base tracking-wide flex items-center gap-2">
                   <div className="w-[4px] h-5 bg-[#CAEB66] rounded-[15px]"></div>
                   Pick Up & Delivery Manifest
                 </h3>
@@ -523,7 +523,7 @@ const RiderState = () => {
                                     parcel.trackingID,
                                   )
                                 }
-                                className="bg-[#CAEB66] text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
+                                className="bg-[#CAEB66] text-[#02312A] text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
                               >
                                 Delivered
                               </button>
@@ -575,7 +575,7 @@ const RiderState = () => {
                             onClick={() =>
                               handlePickedUp(parcel.parcelId, parcel.trackingID)
                             }
-                            className="bg-[#CAEB66] text-secondary text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
+                            className="bg-[#CAEB66] text-[#02312A] text-xs font-bold px-3.5 py-2 rounded-md transition-all cursor-pointer whitespace-nowrap"
                           >
                             Picked
                           </button>

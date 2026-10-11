@@ -292,14 +292,14 @@ const Incoming = () => {
         <div className="modal-box p-0 rounded-tradecen border-none shadow-2xl overflow-hidden max-w-lg">
           <div className="bg-[#CAEB66] p-6 text-center relative">
             <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-secondary hover:bg-black/20">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4 text-[#02312A] hover:bg-black/20">
                 ✕
               </button>
             </form>
             <div className="w-16 h-16 bg-[#02312A] rounded-2xl mx-auto flex items-center justify-center text-2xl mb-3 shadow-lg transform rotate-3">
               <MdPedalBike size={30} className="text-white" />
             </div>
-            <h3 className="font-black text-secondary text-xl uppercase tracking-tight">
+            <h3 className="font-black text-[#02312A] text-xl uppercase tracking-tight">
               Assign Pickup
             </h3>
             <p className="text-[#CAEB66] text-xs font-bold opacity-80 uppercase tracking-widest mt-1">

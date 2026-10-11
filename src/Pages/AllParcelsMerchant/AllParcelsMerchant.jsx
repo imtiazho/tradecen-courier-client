@@ -71,8 +71,8 @@ const AllParcelsMerchant = () => {
     <div className="p-6 bg-white rounded-[20px] shadow-flat">
       <DynamicTitle title="Dashboard | All Parcels" />
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl font-black text-secondary">All Parcels</h2>
-        <div className="bg-[#CAEB66] text-secondary px-4 py-1 rounded-[10px] text-[10px] font-bold uppercase">
+        <h2 className="text-2xl font-black text-[#02312A]">All Parcels</h2>
+        <div className="bg-[#CAEB66] text-[#02312A] px-4 py-1 rounded-[10px] text-[10px] font-bold uppercase">
           Total: {parcelsData?.count || 0}
         </div>
       </div>

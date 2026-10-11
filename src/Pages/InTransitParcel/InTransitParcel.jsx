@@ -31,10 +31,10 @@ const InTransitParcel = () => {
   if (isLoading) return <LoadingModal isLoading={isLoading} />;
 
   return (
-    <div className="py-8 px-12 bg-[#fff] rounded-tradecen shadow-flat font-sans text-secondary">
+    <div className="py-8 px-12 bg-[#fff] rounded-tradecen shadow-flat font-sans text-[#02312A]">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-secondary tracking-tight">
+          <h1 className="text-2xl font-extrabold text-[#02312A] tracking-tight">
             In-Transit Shipments
           </h1>
           <p className="text-slate-500 text-sm mt-2">
