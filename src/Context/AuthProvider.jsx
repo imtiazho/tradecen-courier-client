@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
       const token = currentUser.accessToken;
 
       const res = await axios.get(
-        `http://localhost:5000/user/${currentUser.email}`,
+        `https://tradecen-courier-server.onrender.com/user/${currentUser.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

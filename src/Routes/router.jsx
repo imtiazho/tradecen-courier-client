@@ -196,7 +196,7 @@ export const router = createBrowserRouter([
       {
         path: "all-parcels/parcel-detail/:parcelId",
         loader: async ({ params }) =>
-          fetch(`http://localhost:5000/parcel/${params.parcelId}`),
+          fetch(`https://tradecen-courier-server.onrender.com/parcel/${params.parcelId}`),
         element: <ParcelDetails></ParcelDetails>,
       },
       {
