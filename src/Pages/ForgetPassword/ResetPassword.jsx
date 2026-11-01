@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import DynamicTitle from "../../Components/DynamicTitle/DynamicTitle";
+import { API_BASE_URL } from "../../api/apiClient";
 
 const ResetPassword = () => {
   const location = useLocation();
@@ -60,7 +61,7 @@ const ResetPassword = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("https://tradecen-courier-server.onrender.com/reset-password", {
+      const response = await fetch(`${API_BASE_URL}/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

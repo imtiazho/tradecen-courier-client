@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { auth } from "../../firebase.init";
 import {
   createUserWithEmailAndPassword,
@@ -11,9 +10,9 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import axios from "axios";
+import { axiosSecure } from "../api/apiClient";
+import { loadDbProfile } from "./loadDbProfile";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -51,30 +50,15 @@ const AuthProvider = ({ children }) => {
     return sendEmailVerification(auth.currentUser);
   };
 
-  const fetchDbUser = async (currentUser) => {
-    if (!currentUser || !currentUser.email) return;
-
-    try {
-      const token = currentUser.accessToken;
-
-      const res = await axios.get(
-        `https://tradecen-courier-server.onrender.com/user/${currentUser.email}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      setDbUser(res.data);
-    } catch (error) {
-      console.error("DB User fetch error:", error);
-      setDbUser(null);
-    }
-  };
+  const fetchDbUser = useCallback(async (currentUser) => {
+    return loadDbProfile({ client: axiosSecure, currentUser, auth, setDbUser });
+  }, []);
 
   useEffect(() => {
+    let authStateVersion = 0;
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      const version = ++authStateVersion;
+      setLoading(true);
       if (!currentUser) {
         setUser(null);
         setDbUser(null);
@@ -83,15 +67,14 @@ const AuthProvider = ({ children }) => {
       }
 
       setUser(currentUser);
-
       await fetchDbUser(currentUser);
-      setLoading(false);
+      if (version === authStateVersion) setLoading(false);
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [fetchDbUser]);
 
   const authInfo = {
     user,

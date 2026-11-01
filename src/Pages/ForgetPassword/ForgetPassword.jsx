@@ -3,6 +3,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2"; // SweetAlert2 ইমপোর্ট করুন
 import DynamicTitle from "../../Components/DynamicTitle/DynamicTitle";
+import { API_BASE_URL } from "../../api/apiClient";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const ForgetPassword = () => {
 
     try {
       setLoading(true);
-      const response = await fetch("https://tradecen-courier-server.onrender.com/send-otp", {
+      const response = await fetch(`${API_BASE_URL}/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

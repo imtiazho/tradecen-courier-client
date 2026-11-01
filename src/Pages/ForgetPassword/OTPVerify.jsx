@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router";
 import Swal from "sweetalert2";
 import DynamicTitle from "../../Components/DynamicTitle/DynamicTitle";
+import { API_BASE_URL } from "../../api/apiClient";
 
 const OTPVerify = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const OTPVerify = () => {
 
     try {
       setLoading(true);
-      const response = await fetch("https://tradecen-courier-server.onrender.com/verify-otp", {
+      const response = await fetch(`${API_BASE_URL}/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: finalOtp }),
@@ -111,7 +112,7 @@ const OTPVerify = () => {
     try {
       if (!email) return;
 
-      const response = await fetch("https://tradecen-courier-server.onrender.com/send-otp", {
+      const response = await fetch(`${API_BASE_URL}/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

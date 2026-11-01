@@ -65,6 +65,10 @@ import AllMerchants from "../Pages/AllMerchants/AllMerchants";
 import AllRiders from "../Pages/AllRiders/AllRiders";
 import RiderReturnReq from "../Pages/RiderReturnReq/RiderReturnReq";
 import ReturnLocal from "../Pages/ReturnLocal/ReturnLocal";
+import { loadParcelDetail } from "./loadParcelDetail";
+import { auth } from "../../firebase.init";
+import { axiosSecure } from "../api/apiClient";
+import ParcelDetailError from "../Pages/ParcelDetails/ParcelDetailError";
 
 export const router = createBrowserRouter([
   {
@@ -195,9 +199,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "all-parcels/parcel-detail/:parcelId",
-        loader: async ({ params }) =>
-          fetch(`https://tradecen-courier-server.onrender.com/parcel/${params.parcelId}`),
+        loader: ({ params }) => loadParcelDetail({
+          parcelId: params.parcelId,
+          auth,
+          apiClient: axiosSecure,
+        }),
         element: <ParcelDetails></ParcelDetails>,
+        errorElement: <ParcelDetailError />,
       },
       {
         path: "unpaid-parcel",
